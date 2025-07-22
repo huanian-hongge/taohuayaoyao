@@ -1,4 +1,3 @@
-<details> <summary>點我展開首頁 HTML 內容</summary>
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="zh-TW">
