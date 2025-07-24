@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arcadia</title>
+  <style>
+    /* 全局設置：確保所有元素從邊緣開始，避免不必要的間距 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box; /* 確保 padding 和 border 不會增加元素總寬高 */
+    }
+
+    /* HTML 和 Body 樣式：確保整個頁面高度正確，用於定位 fixed 元素 */
+    html, body {
+        height: 100%; /* 讓 html 和 body 佔滿整個視窗高度 */
+        overflow-x: hidden; /* 防止水平滾動條 */
+    }
+
+    body {
+      font-family: 'Papyrus', 'Andres', sans-serif;
+      /* 主背景圖片：固定不動，覆蓋整個視窗，不隨滾動移動 */
+      background: url('img/背景素材1200x800-300.png') no-repeat center center fixed;
+      background-size: cover; /* 確保圖片覆蓋整個 body，可能裁切 */
+      background-position: center center; /* 圖片居中顯示 */
+      display: flex; /* 使用 Flexbox 佈局，垂直排列 header, main, footer */
+      flex-direction: column;
+      position: relative; /* 用於 z-index 的上下文 */
+    }
+
+    /* Header 樣式：頂部固定橫條 */
+    header {
+      position: fixed; /* 固定在視窗頂部 */
+      top: 0;
+      left: 0;
+      width: 100%; /* 佔滿整個寬度 */
+      height: 50px; /* 固定高度 */
+      /* 頂部橫條背景圖片：覆蓋並居中 */
+      background-image: url('img/頂部橫條素材1200-300.png');
+      background-size: cover;
+      background-position: center;
+      display: flex; /* 啟用 Flexbox 佈局，用於排列 Home icon 和可能的標題 */
+      align-items: center; /* 垂直居中對齊子元素 */
+      justify-content: flex-start; /* Home icon 靠左 */
+      padding: 0 15px; /* 左右內邊距 */
+      z-index: 1000; /* 確保在所有內容之上 */
+    }
+
+    /* Home icon 樣式 */
+    header .home-icon {
+      height: 28px; /* 固定高度 */
+      width: auto; /* 寬度自動調整以保持比例 */
+      cursor: pointer;
+      max-width: 100%;
+      transition: height 0.3s ease;
+    }
+
+    /* Header 標題 Arcadia (如果啟用) */
+    header h1 {
+        font-size: 1.2em;
+        letter-spacing: 2px;
+        color: #4e3f34;
+        margin-left: 15px;
+    }
+
+    /* 固定中間框線圖片容器 */
+    #fixed-center-frame {
+        position: fixed; /* 固定在視窗中 */
+        top: 50%; /* 垂直居中 */
+        left: 58%; /* 根據需求調整偏右程度 */
+        transform: translate(-50%, -50%); /* 保持精確居中 */
+        width: 700px;
+        height: 300px;
+        max-width: 90%; /* 確保在小螢幕下不會超出視窗 */
+        max-height: 80vh; /* 確保在小螢幕下不會過高 */
+        background-image: url('img/首頁介紹底框素材700-300.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        z-index: 500; /* 在背景之上，但在 header 和浮動菜單之下 */
+        pointer-events: none; /* 確保不擋住任何點擊事件 */
+    }
+
+    /* *** 全新的浮動選單樣式 (針對「從下往上算三分之一」和點擊問題優化) *** */
+    #floating-menu {
+      position: fixed; /* 固定在視窗中 */
+      right: 0; /* 靠右對齊 */
+      bottom: calc(100vh / 3 - 48px / 2); /* 從下往上約三分之一處，並考慮自身高度一半 */
+      /* 選單條的底部應該位於頁面高度的 1/3 處 */
+      /* bottom: calc(100vh / 3); 這是底部邊緣在1/3處的寫法，但我會用更精確的居中*/
+      transform: translateY(50%); /* 為了將其中心對齊到 calc(100vh / 3) 處，需要向下移動自身高度的一半 */
+      
+      width: auto; /* 寬度根據內容自動調整 */
+      background: url('img/底部橫條素材1200-300.png') no-repeat center center; /* 使用底部的素材作為背景 */
+      background-size: cover;
+      background-position: center;
+      padding-right: 48px; /* 給收縮按鈕留出空間 */
+      padding-left: 10px; /* 內容左側留點空間 */
+      height: 48px; /* 讓其高度與按鈕相匹配 */
+      display: flex; /* 啟用 Flexbox */
+      align-items: center; /* 垂直居中對齊內部元素 */
+      z-index: 995; /* 確保在內容和中間框線之上，但低於 header */
+      transition: transform 0.3s ease-in-out; /* 平滑的水平收縮動畫 */
+      box-shadow: -3px 0 5px rgba(0,0,0,0.1); /* 添加左側陰影 */
+      border-top-left-radius: 5px; /* 左上角圓角 */
+      border-bottom-left-radius: 5px; /* 左下角圓角 */
+      pointer-events: auto; /* 確保整個選單可點擊 */
+    }
+
+    /* 浮動選單收縮狀態 */
+    #floating-menu.collapsed {
+        /* 向右移動自身寬度 (減去按鈕的寬度) */
+        transform: translateY(50%) translateX(calc(100% - 48px)); /* 48px 是收縮按鈕的寬度 */
+    }
+
+    /* 浮動選單的導航部分 */
+    #floating-menu nav {
+      display: flex;
+      align-items: center;
+      gap: 1em; /* 按鈕之間的間距 */
+      transition: opacity 0.3s ease-in-out; /* 讓導航按鈕淡入淡出 */
+      will-change: opacity;
+    }
+
+    /* 隱藏浮動選單的導航內容（當收縮時） */
+    #floating-menu nav.hidden {
+      opacity: 0;
+      pointer-events: none; /* 隱藏時禁用點擊事件 */
+    }
+
+    /* 浮動選單按鈕樣式 */
+    #floating-menu .nav-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #floating-menu .nav-button img {
+      height: 30px; /* 按鈕圖片高度 */
+      width: auto;
+      display: block;
+    }
+
+    /* 浮動選單分隔線 */
+    #floating-menu .separator {
+      width: 2px;
+      height: 25px;
+      background: url('img/首頁分隔線素材300-300.png') no-repeat center center;
+      background-size: contain;
+      margin: 0 0.5em;
+      flex-shrink: 0;
+    }
+
+    /* 浮動選單收縮按鈕 */
+    #floating-menu .collapse-button {
+      position: absolute; /* 相對於 #floating-menu 定位 */
+      right: 0; /* 貼緊右側 */
+      top: 0; /* 貼緊頂部 */
+      height: 100%; /* 與父元素同高 */
+      width: 48px; /* 固定寬度，與按鈕高度相同，形成正方形 */
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10; /* 確保在導航內容上方，始終可點擊 */
+      pointer-events: auto; /* 確保按鈕本身可點擊 */
+    }
+
+    #floating-menu .collapse-button img {
+      height: 30px; /* 按鈕圖片大小 */
+      width: auto;
+      display: block;
+      transition: opacity 0.3s ease-in-out; /* 讓圖片切換有淡入淡出效果 */
+    }
+
+    /* 底部裝飾條 (保持原樣，因為它在最底部) */
+    #decorative-strip {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 48px; /* 與 floating-menu 高度相同，或依照圖片調整 */
+      background: url('img/decor.png') no-repeat center center;
+      background-size: cover;
+      pointer-events: none;
+      z-index: -1; /* 放在最底層 */
+    }
+
+    /* 響應式調整：當視窗寬度小於 768px 時 */
+    @media (max-width: 768px) {
+        header {
+            height: 40px;
+            padding: 0 10px;
+        }
+        header .home-icon {
+            height: 24px;
+        }
+        header h1 {
+            font-size: 1em;
+            margin-left: 10px;
+        }
+        /* 中間固定框線圖片的響應式調整 */
+        #fixed-center-frame {
+            width: 90%;
+            height: auto;
+            max-height: 80vh;
+            left: 50%; /* 在小螢幕上可以考慮重新居中 */
+            transform: translate(-50%, -50%);
+        }
+
+        /* 浮動選單在小螢幕下的調整 */
+        #floating-menu {
+            bottom: calc(100vh / 4 - 40px / 2); /* 在小螢幕上可以調高一點，從底部四分之一 */
+            height: 40px; /* 縮小浮動選單的高度 */
+            padding-right: 40px; /* 收縮按鈕寬度也調整 */
+        }
+        #floating-menu .nav-button img {
+            height: 25px; /* 縮小按鈕圖片 */
+        }
+        #floating-menu .separator {
+            height: 20px; /* 縮小分隔線 */
+        }
+        #floating-menu .collapse-button {
+            width: 40px; /* 收縮按鈕寬度也調整 */
+        }
+        #floating-menu .collapse-button img {
+            height: 25px; /* 收縮按鈕圖片大小 */
+        }
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <img src="img/Home icon300-300.png" alt="回首頁" class="home-icon" onclick="location.href='index.html'">
+    </header>
+
+  <div id="fixed-center-frame"></div>
+
+
+  <div id="floating-menu">
+    <nav>
+      <button class="nav-button" onclick="goto('character')">
+        <img src="img/Character icon300-300.png" alt="Character">
+      </button>
+      <div class="separator"></div>
+      <button class="nav-button" onclick="goto('extra')">
+        <img src="img/Extra icon300-300.png" alt="Extra">
+      </button>
+      <div class="separator"></div>
+      <button class="nav-button" onclick="goto('workshop')">
+        <img src="img/The Workshop icon300-300.png" alt="The Workshop">
+      </button>
+      <div class="separator"></div>
+      <button class="nav-button" onclick="goto('contact')">
+        <img src="img/Contact icon300-300.png" alt="Contact">
+      </button>
+    </nav>
+    <button class="collapse-button" id="floating-menu-collapse-button">
+        <img src="img/選單收縮素材300-300.png" alt="Collapse Menu">
+    </button>
+  </div>
+
+  <div id="decorative-strip"></div>
+
+  <script>
+    function goto(section) {
+      alert('前往『' + section + '』頁面！（之後可改成跳轉）');
+      // 將來實際跳轉頁面時，可以這樣寫：
+      // window.location.href = section + '.html'; // 假設頁面是 character.html, extra.html 等
+    }
+
+    // 獲取新的浮動選單相關元素
+    const floatingMenuElement = document.getElementById('floating-menu');
+    const floatingMenuNav = floatingMenuElement.querySelector('nav');
+    const floatingMenuCollapseButton = document.getElementById('floating-menu-collapse-button');
+    const floatingMenuCollapseButtonImg = floatingMenuCollapseButton.querySelector('img');
+
+    // 定義收縮和展開時的圖片路徑
+    const expandedImgSrc = 'img/選單收縮素材300-300.png'; // 展開時（箭頭向左）
+    const collapsedImgSrc = 'img/收攏後的選單素材300-300.png'; // 收攏時（箭頭向右）
+
+    // 點擊事件監聽器
+    if (floatingMenuCollapseButton) {
+      floatingMenuCollapseButton.addEventListener('click', function() {
+        const isCollapsed = floatingMenuElement.classList.contains('collapsed');
+
+        if (isCollapsed) {
+          // 如果目前是收縮狀態，點擊後「展開」
+          floatingMenuElement.classList.remove('collapsed'); // 移除 collapsed class，選單向左滑出
+          floatingMenuNav.classList.remove('hidden');       // 導航內容立即顯示 (淡入)
+          floatingMenuCollapseButtonImg.src = expandedImgSrc; // 更換圖片為展開狀態
+          floatingMenuCollapseButtonImg.alt = "Collapse Menu";
+        } else {
+          // 如果目前是展開狀態，點擊後「收縮」
+          floatingMenuNav.classList.add('hidden');          // 導航內容立即隱藏 (淡出)
+          // 延遲一點再添加 collapsed class，讓導航內容淡出後，選單再整體向右滑入
+          setTimeout(() => {
+            floatingMenuElement.classList.add('collapsed');
+            floatingMenuCollapseButtonImg.src = collapsedImgSrc; // 更換圖片為收縮狀態
+            floatingMenuCollapseButtonImg.alt = "Expand Menu";
+          }, 250); // 250ms (略小於 nav opacity transition 的 0.3s)
+        }
+      });
+    }
+  </script>
+</body>
+</html>
