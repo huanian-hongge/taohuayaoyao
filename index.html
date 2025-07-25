@@ -269,6 +269,28 @@
                 height: 40px; /* 縮小底部條 */
             }
         }
+
+        /* 額外針對超小螢幕（例如 320px） */
+        @media (max-width: 480px) {
+            #floating-menu {
+                height: 25px;
+                bottom: bottom: 55px; /* 進一步調整 */
+            }
+            #floating-menu .nav-button img {
+                height: 15px;
+                margin-top: 2px;
+            }
+            #floating-menu .separator {
+                width: 10px;
+                height: 10px;
+            }
+            #floating-menu .collapse-button img {
+                height: 14px;
+            }
+            #decorative-strip {
+                height: 40px;
+            }
+        }
     </style>
 </head>
 
