@@ -213,50 +213,70 @@
         @media (max-width: 768px) {
             header {
                 height: 40px;
-                padding: 0 10px;
+                padding: 0 8px;
             }
             header .home-icon {
-                height: 24px;
+                height: 20px;
             }
             header h1 {
-                font-size: 1.2em;
-                margin-left: 10px;
+                font-size: 1em;
+                margin-left: 8px;
             }
             #fixed-center-frame {
                 width: 90%;
                 height: auto;
-                max-height: 70vh;
+                max-height: 60vh;
                 left: 50%;
                 transform: translate(-50%, -50%);
             }
             #floating-menu {
-                height: 40px;
-                padding: 0 10px; /* 減少內邊距 */
-                bottom: calc(100vh / 6 - 20px); /* 調整底部位置 */
+                height: 35px;
+                padding: 0 8px; /* 減少內邊距 */
+                bottom: 5%; /* 更靈活的底部位置 */
                 transform: translateY(50%);
             }
             #floating-menu.collapsed {
-                width: 40px;
-                left: calc(100vw - 40px);
+                width: 35px;
+                left: calc(100vw - 35px);
                 transform: translateY(50%);
                 padding: 0;
             }
             #floating-menu .nav-button img {
-                height: 25px;
-                margin-top: 5px; /* 小螢幕下調整偏移 */
+                height: 20px;
+                margin-top: 4px; /* 小螢幕下調整偏移 */
                 filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
                 max-height: 80%; /* 限制圖片高度 */
             }
             #floating-menu .separator {
-                height: 20px;
-                margin: 0 0.3em;
+                width: 15px;
+                height: 15px; /* 縮小分隔線 */
+                margin: 0 0.2em;
             }
             #floating-menu .collapse-button {
-                width: 40px;
+                width: 35px;
             }
             #floating-menu .collapse-button img {
-                height: 20px; /* 縮小按鈕圖片 */
+                height: 18px; /* 縮小按鈕圖片 */
                 filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+            }
+        }
+
+        /* 額外針對超小螢幕（例如 320px） */
+        @media (max-width: 480px) {
+            #floating-menu {
+                height: 30px;
+                bottom: 2%; /* 更靠近底部 */
+            }
+            #floating-menu .nav-button img {
+                height: 18px;
+                margin-top: 3px;
+            }
+            #floating-menu .separator {
+                width: 12px;
+                height: 12px;
+            }
+            #floating-menu .collapse-button img {
+                height: 16px;
             }
         }
     </style>
