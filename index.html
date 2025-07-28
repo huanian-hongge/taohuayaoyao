@@ -329,7 +329,7 @@
 
     <script>
         function goto(section) {
-            alert('前往『' + section + '』頁面！（之後可改成跳轉）');
+            window.location.href = section + '.html';
         }
 
         const floatingMenuElement = document.getElementById('floating-menu');
