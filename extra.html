@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcadia</title>
+
+    <style>
+        /* 全局設置：確保所有元素從邊緣開始，避免不必要的間距 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* HTML 和 Body 樣式：確保整個頁面高度正確，用於定位 fixed 元素 */
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+            pointer-events: auto;
+        }
+
+        body {
+            font-family: 'Papyrus', 'Andres', sans-serif;
+            background: url('img/背景素材1200x800-300.png') no-repeat center center fixed;
+            background-size: cover;
+            background-position: center center;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Header 樣式：頂部固定橫條 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-image: url('img/頂部橫條素材1200-300.png');
+            background-size: auto 100%;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 15px;
+            z-index: 1000;
+        }
+
+        /* Home icon 樣式 */
+        header .home-icon {
+            height: 40px;
+            width: auto;
+            cursor: pointer;
+            max-width: 100%;
+            transition: height 0.3s ease;
+            position: absolute;  /* 讓它自由定位 */
+            left: 10px;          /* 離左邊的距離 */
+            top: 8px;           /* 離上方的距離 */
+            z-index: 1001;       /* 確保它蓋在 header 背景圖上 */
+        }
+
+        header .header-overlay {
+            position: absolute;
+            top: 1px;          /* 距離 header 的頂端 */
+            left: 50%;       /* 水平置中 */
+            transform: translateX(-50%);
+            height: 50px;    /* 調整高度或寬度看圖片比例 */
+            z-index: 1000;   /* 比 header 的 z-index 高一點，確保能疊在上面 */
+            pointer-events: none; /* 不影響點擊 Home icon */
+        }
+
+        /* 固定中間框線圖片容器 */
+        #fixed-center-frame {
+            position: fixed;
+            top: 15%;
+            left: 80%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            height: 600px;
+            max-width: 90%;
+            max-height: 80vh;
+            background-image: url('img/extra標題素材500.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 500;
+            pointer-events: none;
+        }
+
+        /* 底部「懸浮條」樣式 */
+        #floating-menu {
+            position: fixed;
+            bottom: 260px; /* 固定距離，避開 decorative-strip */
+            right: 0;
+            width: 100%;
+            height: 60px;
+            background: url('img/選單條素材1200-300.png') no-repeat center center;
+            background-size: 200% 100%;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 10px;
+            z-index: 995;
+            transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+            pointer-events: auto;
+            overflow: hidden;
+        }
+
+        /* 浮動選單收縮狀態 */
+        #floating-menu.collapsed {
+            width: 48px;
+            left: calc(100vw - 48px);
+            padding: 0;
+            background-image: url('img/收攏後的選單素材300-300.png');
+            background-size: cover;
+            background-position: center;
+            background-color: transparent;
+        }
+
+        /* 懸浮條的導航部分 */
+        #floating-menu nav {
+            display: flex;
+            align-items: center;
+            gap: 0.2em;
+            transition: opacity 0.3s ease-in-out;
+            will-change: opacity;
+            pointer-events: auto;
+            flex-shrink: 0;
+        }
+
+        /* 隱藏懸浮條的導航內容（當收縮時） */
+        #floating-menu nav.hidden {
+            opacity: 0;
+            pointer-events: none;
+            width: 0;
+            overflow: hidden;
+        }
+
+        /* 懸浮條按鈕樣式 */
+        #floating-menu .nav-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: auto;
+        }
+
+        #floating-menu .nav-button img {
+            height: 45px;
+            width: auto;
+            display: block;
+            margin-top: 5px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            max-height: 85%; /* 確保圖片不超過容器 */
+        }
+
+        /* 懸浮條分隔線 */
+        #floating-menu .separator {
+            width: 23px;
+            height: 60px;
+            background: url('img/首頁分隔線素材300-300.png') no-repeat center center;
+            background-size: contain;
+            margin: 0 0.1em;
+            flex-shrink: 0;
+            pointer-events: none;
+        }
+
+        /* 懸浮條收縮按鈕 */
+        #floating-menu .collapse-button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 48px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        #floating-menu .collapse-button img {
+            height: 50px;
+            width: auto;
+            display: block;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        /* 底部裝飾條 */
+        #decorative-strip {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 45px;/* 確保與 floating-menu 分開 */
+            background: url('img/底部橫條素材1200-300.png') no-repeat center center;
+            background-size: 200% 100%;
+            pointer-events: none;
+            z-index: 990; /* 降低 z-index */
+        }
+
+        /* 響應式調整 */
+        @media (max-width: 768px) {
+            header {
+                height: 35px;
+                padding: 0 8px;
+            }
+            header .home-icon {
+                height: 22px;
+                top: 5px;
+            }
+            header h1 {
+                font-size: 1em;
+                margin-left: 8px;
+            }
+            header .header-overlay {
+                height: 30px;
+                top: 1px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            #fixed-center-frame {
+                width: 90%;
+                height: 350px;
+                max-height: 60vh;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            #floating-menu {
+                height: 44px;
+                padding: 1px; /* 減少內邊距 */
+                bottom: 150px; /* 避開 decorative-strip */
+            }
+            #floating-menu.collapsed {
+                width: 35px;
+                left: calc(100vw - 35px);
+            }
+            #floating-menu .nav-button img {
+                height: 25px;
+                margin-top: 3px; /* 小螢幕下調整偏移 */
+                filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+                max-height: 75%; /* 限制圖片高度 */
+            }
+            #floating-menu .separator {
+                width: 10px;
+                height: 30px; /* 縮小分隔線 */
+                margin: 0 0.01em;
+            }
+            #floating-menu .collapse-button {
+                width: 40px;
+            }
+            #floating-menu .collapse-button img {
+                height: 30px; /* 縮小按鈕圖片 */
+                filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+            }
+            #decorative-strip {
+                height: 40px; /* 縮小底部條 */
+            }
+        }
+
+        /* 額外針對超小螢幕（例如 320px） */
+        @media (max-width: 480px) {
+            #floating-menu {
+                height: 30px;
+                bottom: 150px; /* 進一步調整 */
+            }
+            #floating-menu .nav-button img {
+                height: 18px;
+                margin-top: 2px;
+            }
+            #floating-menu .separator {
+                width: 10px;
+                height: 20px;
+            }
+            #floating-menu .collapse-button img {
+                height: 25px;
+            }
+            #decorative-strip {
+                height: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="img/Home icon300-300.png" alt="回首頁" class="home-icon" onclick="location.href='index.html'">
+        <img src="img/標題字300-300.png" class="header-overlay" alt="裝飾圖">
+    </header>
+
+    <div id="fixed-center-frame"></div>
+
+    <div id="floating-menu">
+        <nav>
+            <button class="nav-button" onclick="goto('character')">
+                <img src="img/Character icon300-300.png" alt="Character">
+            </button>
+            <div class="separator"></div>
+            <button class="nav-button" onclick="goto('extra')">
+                <img src="img/Extra icon300-300.png" alt="Extra">
+            </button>
+            <div class="separator"></div>
+            <button class="nav-button" onclick="goto('workshop')">
+                <img src="img/The Workshop icon300-300.png" alt="The Workshop">
+            </button>
+            <div class="separator"></div>
+            <button class="nav-button" onclick="goto('contact')">
+                <img src="img/Contact icon300-300.png" alt="Contact">
+            </button>
+        </nav>
+        <button class="collapse-button" id="floating-menu-collapse-button">
+            <img src="img/選單收縮素材300-300.png" alt="Collapse Menu">
+        </button>
+    </div>
+
+    <div id="decorative-strip"></div>
+
+    <script>
+        function goto(section) {
+            window.location.href = section + '.html';
+        }
+
+        const floatingMenuElement = document.getElementById('floating-menu');
+        const floatingMenuNav = floatingMenuElement.querySelector('nav');
+        const floatingMenuCollapseButton = document.getElementById('floating-menu-collapse-button');
+        const floatingMenuCollapseButtonImg = floatingMenuCollapseButton.querySelector('img');
+
+        const expandedImgSrc = 'img/選單收縮素材300-300.png';
+        const collapsedImgSrc = 'img/選單收縮收攏素材300-300.png';
+
+        if (floatingMenuCollapseButton) {
+            floatingMenuCollapseButton.addEventListener('click', function() {
+                const isCollapsed = floatingMenuElement.classList.contains('collapsed');
+                if (isCollapsed) {
+                    floatingMenuElement.classList.remove('collapsed');
+                    floatingMenuNav.classList.remove('hidden');
+                    floatingMenuCollapseButtonImg.src = expandedImgSrc;
+                    floatingMenuCollapseButtonImg.alt = "Collapse Menu";
+                } else {
+                    floatingMenuNav.classList.add('hidden');
+                    setTimeout(() => {
+                        floatingMenuElement.classList.add('collapsed');
+                        floatingMenuCollapseButtonImg.src = collapsedImgSrc;
+                        floatingMenuCollapseButtonImg.alt = "Expand Menu";
+                    }, 250);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
