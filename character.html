@@ -575,10 +575,15 @@
     .character-sub-list {
         padding-left: 0;
         padding-top: 8px;
-        display: flex;
+        display: none;
         flex-direction: column;
         align-items: center;
         transform: translateX(50px);
+        width: 100%;
+    }
+
+    .character-item.expanded .character-sub-list {
+        display: flex; /* 展開時顯示為flex */
     }
 
     .character-sub-list a {
@@ -593,7 +598,7 @@
     /* 修復角色名稱標籤 */
     .character-name-tag {
         position: relative;
-        top: 100px;
+        top: 40px;
         left: 70%;
         bottom: auto;
         transform: translateX(-50%);
@@ -607,21 +612,24 @@
     .content-title {
         position: absolute;
         top: 20px;
-        left: 45%;
+        left: 50%;
         transform: translateX(-50%);
-        width: 200px;
+        width: 250px;
         height: auto;
+        display: block;
+        z-index: 15;
     }
 
     /* 修復角色內容區域 */
     .character-content {
         width: 100%;
-        margin-top: 20px;
-        padding: 60px 0px 250px;
-        min-height: 1200px;
+        margin-top: 10px;
+        padding: 0px 0px 900px;
+        min-height: 1100px;
         max-height: none;
         transform: translateX(-21%);
-        background-size: 100% 300%;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
     }
 
     /* 修復角色展示區域 */
@@ -635,7 +643,7 @@
     /* 修復角色主圖 */
     .character-main {
         width: 100%;
-        max-width: 500px;
+        max-width: 600px;
         min-width: 300px;
         left: auto;
         position: relative;
@@ -659,17 +667,17 @@
     }
 
     .character-info img {
-        max-width: 100%;
+        max-width: 500px;
         width: 100%;
         height: auto;
-        margin: -50px auto;
+        margin: -10px auto;
         transform: translateX(10%);
     }
 
     /* 修復角色側身圖 */
     .character-side-image {
         position: relative;
-        top: auto;
+        top: 550px;
         right: -30%;
         width: 100%;
         max-width: 200px;
@@ -677,6 +685,7 @@
         height: auto;
         margin: -150px auto 0;
         display: block;
+        z-index: 5;
     }
 
     /* 修復連結標籤 */
@@ -684,7 +693,7 @@
         position: relative;
         width: 400px;
         height: auto;
-        margin: -350px auto 10px auto;  /* 上30px 下10px */
+        margin: 550px auto 10px auto;  /* 上30px 下10px */
         display: block;
         transition: all 0.2s ease; /* 添加平滑過渡 */
         left: -10%;
@@ -835,11 +844,31 @@
         min-width: 150px;
     }
 
-    .link-label,
-    .link-label2 {
-        width: 150px;
-        margin: 8px auto;
-    }
+            /* 修復連結標籤 - 問題四：修正連結位置 */
+            .link-label {
+                position: relative;
+                width: 400px;
+                height: auto;
+                margin: 20px auto 15px auto; /* 調整邊距 */
+                display: block;
+                transition: all 0.2s ease;
+                left: -10%;
+                bottom: auto; /* 移除 bottom 定位 */
+                right: auto; /* 移除 right 定位 */
+                transform: none; /* 移除之前的transform */
+            }
+
+            .link-label2 {
+                position: relative;
+                width: 400px;
+                height: auto;
+                margin: 15px auto 50px auto; /* 調整邊距，底部多留空間 */
+                display: block;
+                transition: all 0.2s ease;
+                left: -10%;
+                bottom: auto; /* 移除 bottom 定位 */
+                right: auto; /* 移除 right 定位 */
+                transform: none; /* 移除之前可能造成問題的transform */
 
             #floating-menu {
                 height: 30px;
