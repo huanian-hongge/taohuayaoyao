@@ -731,13 +731,6 @@
                 transform: translateX(-50%);
             }
 
-            #fixed-center-frame {
-                width: 90%;
-                height: 350px;
-                max-height: 60vh;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
             #floating-menu {
                 height: 44px;
                 padding: 1px; /* 減少內邊距 */
@@ -813,7 +806,9 @@
     }
 
     .character-name-tag {
-        width: 250px;
+        width: 500px;
+        top: 40px;
+        left: 70%;
     }
 
     .content-title {
@@ -822,13 +817,15 @@
     }
 
     .character-content {
-        padding: 50px 15px 30px;
-        min-height: 500px;
+        padding: 0px 0px 900px;
+        min-height: 1000px;
     }
 
     .character-main {
-        max-width: 250px;
-        min-width: 180px;
+        width: 100%;
+        max-width: 500px;
+        min-width: 300px;
+        left: auto;
     }
 
     .character-portrait {
@@ -840,36 +837,38 @@
     }
 
     .character-side-image {
+        position: relative;
+        top: 450px;
+        right: -30%;
+        width: 100%;
         max-width: 200px;
-        min-width: 150px;
+        min-width: 180px;
+        height: auto;
+        margin: -150px auto 0;
+        display: block;
+        z-index: 5;
     }
 
-            /* 修復連結標籤 - 問題四：修正連結位置 */
-            .link-label {
-                position: relative;
-                width: 400px;
-                height: auto;
-                margin: 20px auto 15px auto; /* 調整邊距 */
-                display: block;
-                transition: all 0.2s ease;
-                left: -10%;
-                bottom: auto; /* 移除 bottom 定位 */
-                right: auto; /* 移除 right 定位 */
-                transform: none; /* 移除之前的transform */
-            }
+    .link-label{
+        position: relative;
+        width: 400px;
+        height: auto;
+        margin: 550px auto 10px auto;  /* 上30px 下10px */
+        display: block;
+        transition: all 0.2s ease; /* 添加平滑過渡 */
+        left: -10%;
+    }
 
-            .link-label2 {
-                position: relative;
-                width: 400px;
-                height: auto;
-                margin: 15px auto 50px auto; /* 調整邊距，底部多留空間 */
-                display: block;
-                transition: all 0.2s ease;
-                left: -10%;
-                bottom: auto; /* 移除 bottom 定位 */
-                right: auto; /* 移除 right 定位 */
-                transform: none; /* 移除之前可能造成問題的transform */
-
+.link-label2 {
+        position: relative;
+        width: 400px;
+        height: auto;
+        margin: 3px auto 30px auto;  /* 上10px 下30px */
+        display: block;
+        transition: all 0.2s ease; /* 添加平滑過渡 */
+        left: -10%;
+    transform: translateY(-50px); /* 這行造成問題 */
+    }
             #floating-menu {
                 height: 30px;
                 bottom: 150px; /* 進一步調整 */
