@@ -555,7 +555,7 @@
     }
 
     .character-list li {
-        margin-bottom: 10px;
+        margin-bottom: 30px;
         text-align: center;
         width: 100%;
     }
@@ -573,6 +573,8 @@
     .character-list a img {
         height: 50px;
         transform: translateX(-30px);
+     margin-top: auto;
+     margin-bottom: auto;
     }
 
 
@@ -580,13 +582,17 @@
     /* 修復子選單 */
     .character-sub-list {
         padding-left: 0;
-        padding-top: 8px;
+        padding-top: 5px;
         display: none;
         flex-direction: column;
         align-items: center;
         transform: translateX(100px);
         width: 100%;
     }
+
+.character-sub-list li:first-child {
+    margin-top: -50px; /* 確保第一個子項目（基本資料）緊貼著 */
+}
 
     .character-item.expanded .character-sub-list {
         display: flex; /* 展開時顯示為flex */
@@ -598,7 +604,7 @@
         padding: 6px 15px;
         font-size: 13px;
         text-align: center;
-        margin-bottom: 5px;
+        margin-bottom: -13px;
     }
 
     /* 修復角色名稱標籤 */
@@ -619,7 +625,7 @@
         position: absolute;
         top: 20px;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translateX(-45%);
         width: 250px;
         height: auto;
         display: block;
@@ -789,7 +795,7 @@
 
     .series-title {
         width: 250px;
-        margin: -40px auto 40px;
+        margin: -65px auto 55px;
     }
 
     .character-list a {
@@ -799,16 +805,22 @@
         font-size: 13px;
     }
 
+.character-list a.active {
+    padding: 4px 40px;
+    }
+
     .character-list a img {
-        height: 30px;
-        transform: translateX(-8px);
+        height: 40px;
+        transform: translateX(-16px);
     }
 
     .character-sub-list a {
         width: 80%;
         max-width: 180px;
         padding: 5px 12px;
-        font-size: 12px;
+        font-size: 14px;
+        margin-bottom: -13px;
+        transform: translateX(-17%);
     }
 
     .character-name-tag {
@@ -821,7 +833,7 @@
                 width: 200px; /* 增加寬度 */
                 top: 18px;
                 left: 50%;
-                transform: translateX(-50%);
+                transform: translateX(-45%);
             }
     }
 
@@ -836,8 +848,8 @@
     .character-main {
         width: 100%;
         max-width: 700px;
-        min-width: 400px;
-        left: auto;
+        min-width: 215px;
+        left: 45px;
                 top: -50px;
     }
 
