@@ -74,6 +74,10 @@
             gap: 30px;
             min-height: calc(100vh - 200px);
             position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    transform: none;
         }
 
         /* 左側角色選單 */
@@ -832,7 +836,7 @@
         max-width: 700px;
         min-width: 500px;
         left: auto;
-                top: 50px;
+                top: -20px;
     }
 
     .character-portrait {
@@ -855,7 +859,7 @@
         z-index: 15;
         margin: 0;
         padding: 0;
-        transform: translateX(10px);
+        transform: translateX(11px);
     }
 
     .link-label{
@@ -900,15 +904,6 @@
 
 /* 修復桌面版確保沒有被影響 */
 @media (min-width: 993px) {
-    .character-name-tag {
-        position: absolute;
-        bottom: 870px;
-        left: 42%;
-        transform: translateX(-50%);
-        width: 650px;
-        height: auto;
-    }
-
     .character-sidebar {
         margin-top: 200px;
     }
