@@ -65,6 +65,11 @@
             padding: 20px;
             gap: 30px;
             min-height: calc(100vh - 200px);
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            transform: none;
         }
 
         /* 左側選單 */
@@ -82,8 +87,9 @@
 
         .sidebar-title {
             position: absolute;
-            top: 220px;
-            transform: translateX(-7%);
+            top: 140px;
+            left: 160px;
+            transform: translateX(-50%);
             width: 280px;
             height: auto;
         }
@@ -95,7 +101,7 @@
             cursor: pointer;
             margin: 0 auto 20px;
             transform: translateX(-18px);
-            width: 275px;
+            width: 246px;
             position: relative;
             padding: 0px 0px;
             border-radius: 8px;
@@ -162,31 +168,36 @@
             background-color: rgba(139, 111, 71, 0.2);
         }
 
-        /* 右側內容區域 */
+        /* 右側內容區域 - 修改：採用與 character 相同的結構 */
         .content-area {
             flex: 1;
             background-image: url('img/Character頁底框素材1000.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
             padding: 80px 40px 40px;
+            position: relative;
             margin-top: 180px;
             min-height: 500px;
             max-height: 800px;
             width: 1200px;
+            /* 初始狀態：隱藏右側內容 */
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
+        /* 當顯示內容時的樣式 */
         .content-area.show-content {
             opacity: 1;
             visibility: visible;
         }
 
+        /* 修改：內容標題採用與 character 相同的定位方式，但相對於頁面容器 */
         .content-title {
             position: absolute;
-            top: 110px;
-            right: 74px;
+            top: 30px;
+            left: 85%;
+            transform: translateX(-50%);
             width: 350px;
             height: auto;
         }
@@ -199,10 +210,14 @@
             color: #5a4a3a;
             font-size: 16px;
             line-height: 1.8;
+            position: relative;
+            z-index: 10;
+            pointer-events: none;
         }
 
         .story-content {
             flex: 1;
+            pointer-events: auto;
         }
 
         .story-content img {
@@ -226,6 +241,8 @@
             justify-content: center;
             z-index: 995;
             transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+            pointer-events: auto;
+            overflow: hidden;
         }
 
         #floating-menu.collapsed {
@@ -245,6 +262,8 @@
         #floating-menu nav.hidden {
             opacity: 0;
             pointer-events: none;
+            width: 0;
+            overflow: hidden;
         }
 
         #floating-menu .nav-button {
@@ -261,6 +280,7 @@
             height: 45px;
             width: auto;
             transform: translateY(2px);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
 
         #floating-menu .separator {
@@ -269,6 +289,8 @@
             background: url('img/首頁分隔線素材300-300.png') no-repeat center center;
             background-size: contain;
             margin: 0 0.1em;
+            flex-shrink: 0;
+            pointer-events: none;
         }
 
         #floating-menu .collapse-button {
@@ -280,14 +302,19 @@
             background: none;
             border: none;
             cursor: pointer;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            z-index: 10;
+            pointer-events: auto;
         }
 
         #floating-menu .collapse-button img {
             height: 50px;
             width: auto;
+            display: block;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
 
         /* 底部裝飾條 */
@@ -303,62 +330,52 @@
             z-index: 990;
         }
 
-        /* 響應式設計 */
+        /* 手機版響應式設計修復 */
         @media (max-width: 992px) {
-            header {
-                height: 35px;
-                padding: 0 8px;
-            }
-        header .header-title {
-            height: 30px;
-            width: auto;
-            margin-top: -3px;
-        }
-            header .home-icon {
-                height: 22px;
-                top: 5px;
-            }
-            header h1 {
-                font-size: 1em;
-                margin-left: 8px;
-            }
-            header .header-overlay {
+            header .header-title {
                 height: 30px;
-                top: 1px;
-                left: 50%;
-                transform: translateX(-50%);
+                width: auto;
+                margin-top: -3px;
+                pointer-events: none;
             }
 
             .page-container {
                 flex-direction: column;
                 margin-top: 60px;
+                transform: translateX(100px);
                 padding: 10px;
                 gap: 15px;
+                max-width: 100%;
             }
 
             .sidebar {
                 width: 70%;
-                margin-top: 215px;
+                min-width: unset;
+                margin-top: 220px;
                 transform: translateX(-90px);
                 padding: 80px 20px 30px;
+                background-size: 100% auto;
+                position: relative;
             }
 
             .sidebar-title {
                 position: absolute;
-                transform: translateX(-50%);
                 top: -65px;
                 left: 50%;
-                width: 230px;
+                transform: translateX(-50%);
+                width: 250px;
+                height: auto;
             }
 
             .series-header {
                 margin: -70px auto 40px;
-                transform: translateX(-10px);
-                padding: 10px 20px;
+                transform: translateX(-4%);
+                padding: 0px 20px;
             }
 
             .series-title {
                 width: 310px;
+                transform: translateX(0px);
             }
 
             .story-list {
@@ -379,87 +396,156 @@
                 font-size: 14px;
             }
 
+            /* 修復內容標題 */
+            .content-title {
+                position: absolute;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-45%);
+                width: 250px;
+                height: auto;
+                display: block;
+                z-index: 15;
+            }
+
+            /* 修復內容區域 */
             .content-area {
                 width: 100%;
                 margin-top: 10px;
-                padding: 60px 20px;
-                min-height: auto;
+                padding: 0px 0px 900px;
+                min-height: 1100px;
+                max-height: none;
                 transform: translateX(-21%);
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
             }
 
-            .content-title {
-                top: 78px;
-                left: 74%;
-                transform: translateX(-45%);
-                width: 250px;
+            .story-display {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding-top: 20px;
             }
 
-            #fixed-center-frame {
-                width: 90%;
-                height: 350px;
-                max-height: 60vh;
-                left: 50%;
-                transform: translate(-50%, -50%);
+            .story-content {
+                width: 100%;
+                text-align: left;
+                font-size: 14px;
+                line-height: 1.6;
+                padding: 0 20px;
             }
-            #floating-menu {
-                height: 44px;
-                padding: 1px; /* 減少內邊距 */
-                bottom: 150px; /* 避開 decorative-strip */
-            }
-            #floating-menu.collapsed {
-                width: 35px;
-                left: calc(100vw - 35px);
-            }
-            #floating-menu .nav-button img {
-                height: 25px;
-                margin-top: 3px; /* 小螢幕下調整偏移 */
-                filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
-                max-height: 75%; /* 限制圖片高度 */
-            }
-            #floating-menu .separator {
-                width: 10px;
-                height: 30px; /* 縮小分隔線 */
-                margin: 0 0.01em;
-            }
-            #floating-menu .collapse-button {
-                width: 40px;
-            }
-            #floating-menu .collapse-button img {
-                height: 30px; /* 縮小按鈕圖片 */
-                filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
-            }
-            #decorative-strip {
-                height: 40px; /* 縮小底部條 */
+
+            /* 手機版浮動選單調整 */
+            @media (max-width: 768px) {
+                header {
+                    height: 35px;
+                    padding: 0 8px;
+                }
+                header .home-icon {
+                    height: 22px;
+                    top: 5px;
+                }
+                header h1 {
+                    font-size: 1em;
+                    margin-left: 8px;
+                }
+                header .header-overlay {
+                    height: 30px;
+                    top: 1px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+
+                #floating-menu {
+                    height: 44px;
+                    padding: 1px;
+                    bottom: 150px;
+                }
+                #floating-menu.collapsed {
+                    width: 35px;
+                    left: calc(100vw - 35px);
+                }
+                #floating-menu .nav-button img {
+                    height: 25px;
+                    margin-top: -2px;
+                    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+                    max-height: 75%;
+                }
+                #floating-menu .separator {
+                    width: 10px;
+                    height: 30px;
+                    margin: 0 0.01em;
+                }
+                #floating-menu .collapse-button {
+                    width: 40px;
+                }
+                #floating-menu .collapse-button img {
+                    height: 30px;
+                    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+                }
+                #decorative-strip {
+                    height: 40px;
+                }
             }
         }
 
+        /* 超小螢幕調整 */
         @media (max-width: 480px) {
+            .page-container {
+                min-height: calc(100vh + 200px);
+                padding-bottom: 200px;
+                padding: 5px;
+                gap: 10px;
+            }
+
             .sidebar {
-                width: 69%;
-                padding: 75px 12px 25px;
-                transform: translateX(5px);
+                padding: 70px 15px 25px;
+            }
+
+            .sidebar-title {
+                width: 230px;
+                top: -65px;
+            }
+
+            .series-header {
+                margin: -65px auto 35px;
+            }
+
+            .series-title {
+                width: 250px;
             }
 
             .story-list a {
-                max-width: 180px;
-                padding: 6px 12px;
+                width: 100%;
+                max-width: 150px;
+                padding: 6px 30px;
                 font-size: 13px;
-                transform: translateX(50%);
-            }
-
-            .content-area {
-                padding: 50px 15px;
-                transform: translateX(0%);
+                transform: translateX(31%);
             }
 
             .content-title {
                 width: 200px;
+                top: 18px;
+                left: 50%;
                 transform: translateX(-60%);
+            }
+
+            .content-area {
+                width: 360px;
+                padding: 55px 15px 1950px;
+                min-height: 800px;
+                transform: translateX(-26%);
+                background-size: 100% 100%;
+            }
+
+            .story-content {
+                font-size: 16px;
+                padding: 0 10px;
             }
 
             #floating-menu {
                 height: 30px;
-                bottom: 150px; /* 進一步調整 */
+                bottom: 150px;
             }
             #floating-menu .nav-button img {
                 height: 18px;
@@ -476,6 +562,17 @@
                 height: 25px;
             }
         }
+
+        /* 修復桌面版確保沒有被影響 */
+        @media (min-width: 993px) {
+            .sidebar {
+                margin-top: 200px;
+            }
+
+            .content-area {
+                margin-top: 180px;
+            }
+        }
     </style>
 </head>
 
@@ -487,7 +584,7 @@
 
     <div class="page-container">
         <!-- 左側選單 -->
-        <div class="sidebar">
+        <div class="sidebar" id="sidebar">
             <img src="img/extra頁選單標題300.png" alt="番外列表標題" class="sidebar-title">
             <div class="series-header" id="series-header">
                 <img src="img/山月民宿系列300.png" alt="山月民宿系列" class="series-title">
@@ -499,7 +596,7 @@
             </ul>
         </div>
 
-        <!-- 右側內容 -->
+        <!-- 右側內容區域 -->
         <img src="img/extra標題素材500.png" alt="Extra" class="content-title">
         <div class="content-area" id="content-area">
             <div class="story-display">
@@ -552,6 +649,24 @@
                     <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
                     <br>
                     <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
                 `
             },
             story2: {
@@ -579,6 +694,12 @@
         function showContent() {
             const contentArea = document.getElementById('content-area');
             contentArea.classList.add('show-content');
+        }
+
+        // 隱藏內容
+        function hideContent() {
+            const contentArea = document.getElementById('content-area');
+            contentArea.classList.remove('show-content');
         }
 
         // 更新故事內容
@@ -625,6 +746,8 @@
                 // 收縮
                 this.classList.remove('expanded');
                 storyList.classList.remove('expanded');
+                // 收縮時隱藏右側內容
+                hideContent();
             } else {
                 // 展開
                 this.classList.add('expanded');
