@@ -52,16 +52,16 @@
             cursor: pointer;
             max-width: 100%;
             transition: height 0.3s ease;
-            position: absolute;  /* 讓它自由定位 */
-            left: 10px;          /* 離左邊的距離 */
-            top: 8px;           /* 離上方的距離 */
-            z-index: 1001;       /* 確保它蓋在 header 背景圖上 */
+            position: absolute;
+            left: 10px;
+            top: 8px;
+            z-index: 1001;
         }
 
         header .header-title {
             height: 50px;
             width: auto;
-            margin-top: -9px;          /* 距離 header 的頂端 */
+            margin-top: -9px;
             pointer-events: none;
         }
 
@@ -75,10 +75,10 @@
             gap: 30px;
             min-height: calc(100vh - 200px);
             position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    transform: none;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            transform: none;
         }
 
         /* 左側角色選單 */
@@ -87,9 +87,9 @@
             min-width: 280px;
             height: fit-content;
             background-image: url('img/Character頁選單底框1000.png');
-            background-size: 100% auto;  /* 改為 auto 保持比例 */
+            background-size: 100% auto;
             background-repeat: no-repeat;
-            background-position: center; /* 置中對齊 */
+            background-position: center;
             padding: 10px 20px 30px;
             margin-top: 200px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -108,7 +108,7 @@
             width: 280px;
             height: auto;
             margin: 0 auto 20px;
-            transform: translateX(-18px);      /* 水平移動 */
+            transform: translateX(-18px);
             display: block;
         }
 
@@ -116,8 +116,8 @@
             list-style: none;
             padding: 0;
             margin: 0;
-            transform: translateX(-13px);  /* 整個按鈕往左移10px */
-            width: 100%;    
+            transform: translateX(-13px);
+            width: 100%;
         }
 
         .character-list li {
@@ -127,7 +127,7 @@
 
         .character-list a {
             display: inline-flex;
-            width: 250px;           /* 設定固定寬度 */
+            width: 250px;
             align-items: center;
             justify-content: center;
             text-decoration: none;
@@ -140,21 +140,21 @@
         .character-list a:hover {
             color: #a8845a;
             background-color: rgba(139, 111, 71, 0.1);
-            border-radius: 8px;  /* 確保圓角 */
-            padding: 8px 60px;   /* 調整內距讓形狀更好看 */
+            border-radius: 8px;
+            padding: 8px 60px;
         }
 
         .character-list a.active {
             color: #6d5537;
             background-color: rgba(139, 111, 71, 0.2);
-            border-radius: 8px;  /* 確保圓角 */
-            padding: 8px 60px;   /* 調整內距讓形狀更好看 */
+            border-radius: 8px;
+            padding: 8px 60px;
         }
 
         .character-list a img {
             height: 45px;
             width: auto;
-            transform: translateX(-20px);      /* 水平移動 */
+            transform: translateX(-20px);
         }
 
         /* 右側內容區域 */
@@ -166,9 +166,19 @@
             padding: 80px 40px 40px;
             position: relative;
             margin-top: 180px;
-            min-height: 500px;   /* 最小500px */
-            max-height: 800px;   /* 最大800px */
-            width: 1200px; /* 增加寬度，例如從1000px調整到1200px */
+            min-height: 500px;
+            max-height: 800px;
+            width: 1200px;
+            /* 初始狀態：隱藏右側內容 */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        /* 當顯示內容時的樣式 */
+        .character-content.show-content {
+            opacity: 1;
+            visibility: visible;
         }
 
         .content-title {
@@ -185,9 +195,9 @@
             gap: 30px;
             height: 100%;
             align-items: flex-start;
-            position: relative;    /* 加上這行 */
+            position: relative;
             z-index: 10;
-            pointer-events: none;  /* 加上這行，讓點擊穿透 */
+            pointer-events: none;
         }
 
         /* 角色主圖區域 */
@@ -195,10 +205,10 @@
             max-width: 500px;
             min-width: 200px;
             width: 60%;
-            height: auto; /* 保持圖片比例 */
+            height: auto;
             left: 3%;
             position: relative;
-            pointer-events: auto; 
+            pointer-events: auto;
         }
 
         .character-portrait {
@@ -215,6 +225,16 @@
             left: 360px;
             width: 650px;
             height: auto;
+            /* 初始狀態：隱藏名稱標籤 */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        /* 當顯示內容時的名稱標籤樣式 */
+        .character-name-tag.show-content {
+            opacity: 1;
+            visibility: visible;
         }
 
         /* 角色資訊文字區域 */
@@ -239,12 +259,12 @@
             top: 120px;
             right: -50px;
             width: 100%;
-            max-width: 300px;    /* 設定最大寬度 */
-            min-width: 150px;    /* 設定最小寬度 */
+            max-width: 300px;
+            min-width: 150px;
             height: auto;
             z-index: 5;
             filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));
-            pointer-events: auto; /* 確保可以點擊 */
+            pointer-events: auto;
         }
 
         /* 添加子選單樣式 */
@@ -252,94 +272,94 @@
             list-style: none;
             padding: 0;
             margin: 0;
-            padding-left: 32px;      /* 調整左側縮排 */
-            padding-top: 6px;        /* 調整上方間距 */
-            display: none;  /* 預設隱藏 */
-}
+            padding-left: 32px;
+            padding-top: 6px;
+            display: none;
+        }
 
         .character-item.expanded .character-sub-list {
-        display: block;  /* 展開時顯示 */
-}
+            display: block;
+        }
 
         .character-sub-list a {
             display: block;
-            padding: 5px 15px;       /* 調整內距 */
+            padding: 5px 15px;
             text-decoration: none;
             color: #5a4a3a;
             font-size: 14px;
             border-radius: 4px;
-            margin-bottom: 5px;      /* 調整選項間距 */
+            margin-bottom: 5px;
             transition: all 0.3s ease;
-            width: 200px;            /* 設定固定寬度 */
-}
+            width: 200px;
+        }
 
         .character-sub-list a:hover {
             background-color: rgba(139, 111, 71, 0.1);
             color: #a8845a;
-}
+        }
 
         .character-sub-list a.active {
             background-color: rgba(139, 111, 71, 0.2);
             color: #6d5537;
-}
+        }
 
-/* 圖片彈出視窗樣式 */
-.image-modal {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    cursor: pointer;
-}
+        /* 圖片彈出視窗樣式 */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            cursor: pointer;
+        }
 
-.modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 8px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-}
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
 
-.modal-content img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
 
-.close-modal {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    color: white;
-    font-size: 35px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 2001;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-}
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2001;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
 
-.close-modal:hover {
-    color: #ccc;
-}
+        .close-modal:hover {
+            color: #ccc;
+        }
 
-/* 讓圖片可點擊 */
-.character-portrait,
-.character-side-image {
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
+        /* 讓圖片可點擊 */
+        .character-portrait,
+        .character-side-image {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
 
-.character-portrait:hover,
-.character-side-image:hover {
-    transform: scale(1.02);
-}
+        .character-portrait:hover,
+        .character-side-image:hover {
+            transform: scale(1.02);
+        }
 
         /* 連結標籤 */
         .link-label {
@@ -350,7 +370,10 @@
             height: auto;
             cursor: pointer;
             z-index: 20;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.5s ease, visibility 0.5s ease;
+            /* 初始狀態：隱藏連結 */
+            opacity: 0;
+            visibility: hidden;
         }
 
         .link-label2 {
@@ -361,18 +384,27 @@
             height: auto;
             cursor: pointer;
             z-index: 20;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.5s ease, visibility 0.5s ease;
+            /* 初始狀態：隱藏連結 */
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* 當顯示內容時的連結樣式 */
+        .link-label.show-content,
+        .link-label2.show-content {
+            opacity: 1;
+            visibility: visible;
         }
 
         .link-label:hover {
             transform: scale(1.05);
         }
 
-
         /* 底部「懸浮條」樣式 */
         #floating-menu {
             position: fixed;
-            bottom: 260px; /* 固定距離，避開 decorative-strip */
+            bottom: 260px;
             right: 0;
             width: 100%;
             height: 60px;
@@ -423,7 +455,7 @@
         #floating-menu .nav-button img {
             height: 45px;
             width: auto;
-            transform: translateY(2px);     /* 垂直移動 */
+            transform: translateY(2px);
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
 
@@ -505,415 +537,414 @@
             z-index: 990;
         }
 
-/* 手機版響應式設計修復 */
-@media (max-width: 992px) {
-        header .header-title {
-            height: 30px;
-            width: auto;
-            margin-top: -3px;          /* 距離 header 的頂端 */
-            pointer-events: none;
-        }
-
-    .page-container {
-        flex-direction: column;
-        margin-top: 60px;
-        transform: translateX(100px);
-        padding: 10px;
-        gap: 15px;
-        max-width: 100%;
-    }
-
-    /* 修復角色選單在手機版的問題 */
-    .character-sidebar {
-        width: 70%;
-        min-width: unset;
-        margin-top: 220px;
-        transform: translateX(-90px);
-        padding: 80px 20px 30px;
-        background-size: 100% auto;
-        position: relative;
-    }
-
-    /* 修復選單標題位置 */
-    .sidebar-title {
-        position: absolute;
-        top: -65px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 250px;
-        height: auto;
-    }
-
-    /* 修復系列標題 */
-    .series-title {
-        width: 310px;
-        height: auto;
-        margin: -70px auto 40px;
-        transform: translateX(-10px);
-        display: block;
-    }
-
-    /* 修復角色清單 */
-    .character-list {
-        transform: translateX(-20%);
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .character-list li {
-        margin-bottom: 30px;
-        text-align: center;
-        width: 100%;
-    }
-
-    .character-list a {
-        width: 100%;
-        max-width: 100px;
-        padding: 50px 10px;
-        font-size: 14px;
-        justify-content: center;
-        border-radius: 6px;        /* 添加圓角 */
-        transition: all 0.3s ease; /* 添加過渡效果 */
-    }
-
-    .character-list a img {
-        height: 50px;
-        transform: translateX(-30px);
-     margin-top: auto;
-     margin-bottom: auto;
-    }
-
-
-
-    /* 修復子選單 */
-    .character-sub-list {
-        padding-left: 0;
-        padding-top: 5px;
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        transform: translateX(100px);
-        width: 100%;
-    }
-
-.character-sub-list li:first-child {
-    margin-top: -50px; /* 確保第一個子項目（基本資料）緊貼著 */
-}
-
-    .character-item.expanded .character-sub-list {
-        display: flex; /* 展開時顯示為flex */
-    }
-
-    .character-sub-list a {
-        width: 100%;
-        max-width: 200px;
-        padding: 6px 15px;
-        font-size: 13px;
-        text-align: center;
-        margin-bottom: -13px;
-    }
-
-    /* 修復角色名稱標籤 */
-    .character-name-tag {
-        position: relative;
-        top: 40px;
-        left: 70%;
-        bottom: auto;
-        transform: translateX(-50%);
-        width: 500px;
-        height: auto;
-        margin: 10px auto;
-        display: block;
-    }
-
-    /* 修復內容標題 */
-    .content-title {
-        position: absolute;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-45%);
-        width: 250px;
-        height: auto;
-        display: block;
-        z-index: 15;
-    }
-
-    /* 修復角色內容區域 */
-    .character-content {
-        width: 100%;
-        margin-top: 10px;
-        padding: 0px 0px 900px;
-        min-height: 1100px;
-        max-height: none;
-        transform: translateX(-21%);
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-    }
-
-    /* 修復角色展示區域 */
-    .character-display {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        padding-top: -100px;
-    }
-
-    /* 修復角色主圖 */
-    .character-main {
-        width: 100%;
-        max-width: 600px;
-        min-width: 300px;
-        left: auto;
-        position: relative;
-    }
-
-    .character-portrait {
-        width: 100%;
-        height: auto;
-        max-width: 350px;
-        transform: translateX(-15%);
-        margin: 0 auto;
-        display: block;
-    }
-
-    /* 修復角色資訊區域 */
-    .character-info {
-        width: 100%;
-        text-align: center;
-        font-size: 14px;
-        line-height: 1.6;
-    }
-
-    .character-info img {
-        max-width: 500px;
-        width: 100%;
-        height: auto;
-        margin: -10px auto;
-        transform: translateX(10%);
-    }
-
-    /* 修復角色側身圖 */
-    .character-side-image {
-        position: relative;
-        top: 550px;
-        right: -30%;
-        width: 100%;
-        max-width: 200px;
-        min-width: 180px;
-        height: auto;
-        margin: -150px auto 0;
-        display: block;
-        z-index: 5;
-    }
-
-    /* 修復連結標籤 */
-    .link-label{
-        position: relative;
-        width: 400px;
-        height: auto;
-        margin: 550px auto 10px auto;  /* 上30px 下10px */
-        display: block;
-        transition: all 0.2s ease; /* 添加平滑過渡 */
-        left: -10%;
-    }
-
-.link-label2 {
-        position: relative;
-        width: 400px;
-        height: auto;
-        margin: 3px auto 30px auto;  /* 上10px 下30px */
-        display: block;
-        transition: all 0.2s ease; /* 添加平滑過渡 */
-        left: -10%;
-    transform: translateY(-50px); /* 這行造成問題 */
-    }
-
-    /* 手機版浮動選單調整 */
-        @media (max-width: 768px) {
-            header {
-                height: 35px;
-                padding: 0 8px;
-            }
-            header .home-icon {
-                height: 22px;
-                top: 5px;
-            }
-            header h1 {
-                font-size: 1em;
-                margin-left: 8px;
-            }
-            header .header-overlay {
+        /* 手機版響應式設計修復 */
+        @media (max-width: 992px) {
+            header .header-title {
                 height: 30px;
-                top: 1px;
+                width: auto;
+                margin-top: -3px;
+                pointer-events: none;
+            }
+
+            .page-container {
+                flex-direction: column;
+                margin-top: 60px;
+                transform: translateX(100px);
+                padding: 10px;
+                gap: 15px;
+                max-width: 100%;
+            }
+
+            /* 修復角色選單在手機版的問題 */
+            .character-sidebar {
+                width: 70%;
+                min-width: unset;
+                margin-top: 220px;
+                transform: translateX(-90px);
+                padding: 80px 20px 30px;
+                background-size: 100% auto;
+                position: relative;
+            }
+
+            /* 修復選單標題位置 */
+            .sidebar-title {
+                position: absolute;
+                top: -65px;
                 left: 50%;
                 transform: translateX(-50%);
+                width: 250px;
+                height: auto;
             }
 
-            #floating-menu {
-                height: 44px;
-                padding: 1px; /* 減少內邊距 */
-                bottom: 150px; /* 避開 decorative-strip */
+            /* 修復系列標題 */
+            .series-title {
+                width: 310px;
+                height: auto;
+                margin: -70px auto 40px;
+                transform: translateX(-10px);
+                display: block;
             }
-            #floating-menu.collapsed {
-                width: 35px;
-                left: calc(100vw - 35px);
+
+            /* 修復角色清單 */
+            .character-list {
+                transform: translateX(-20%);
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
-            #floating-menu .nav-button img {
-                height: 25px;
-                margin-top: -2px; /* 小螢幕下調整偏移 */
-                filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
-                max-height: 75%; /* 限制圖片高度 */
+
+            .character-list li {
+                margin-bottom: 30px;
+                text-align: center;
+                width: 100%;
             }
-            #floating-menu .separator {
-                width: 10px;
-                height: 30px; /* 縮小分隔線 */
-                margin: 0 0.01em;
+
+            .character-list a {
+                width: 100%;
+                max-width: 100px;
+                padding: 50px 10px;
+                font-size: 14px;
+                justify-content: center;
+                border-radius: 6px;
+                transition: all 0.3s ease;
             }
-            #floating-menu .collapse-button {
-                width: 40px;
+
+            .character-list a img {
+                height: 50px;
+                transform: translateX(-30px);
+                margin-top: auto;
+                margin-bottom: auto;
             }
-            #floating-menu .collapse-button img {
-                height: 30px; /* 縮小按鈕圖片 */
-                filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+
+            /* 修復子選單 */
+            .character-sub-list {
+                padding-left: 0;
+                padding-top: 5px;
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                transform: translateX(100px);
+                width: 100%;
             }
-            #decorative-strip {
-                height: 40px; /* 縮小底部條 */
+
+            .character-sub-list li:first-child {
+                margin-top: -50px;
+            }
+
+            .character-item.expanded .character-sub-list {
+                display: flex;
+            }
+
+            .character-sub-list a {
+                width: 100%;
+                max-width: 200px;
+                padding: 6px 15px;
+                font-size: 13px;
+                text-align: center;
+                margin-bottom: -13px;
+            }
+
+            /* 修復角色名稱標籤 */
+            .character-name-tag {
+                position: relative;
+                top: 40px;
+                left: 70%;
+                bottom: auto;
+                transform: translateX(-50%);
+                width: 500px;
+                height: auto;
+                margin: 10px auto;
+                display: block;
+            }
+
+            /* 修復內容標題 */
+            .content-title {
+                position: absolute;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-45%);
+                width: 250px;
+                height: auto;
+                display: block;
+                z-index: 15;
+            }
+
+            /* 修復角色內容區域 */
+            .character-content {
+                width: 100%;
+                margin-top: 10px;
+                padding: 0px 0px 900px;
+                min-height: 1100px;
+                max-height: none;
+                transform: translateX(-21%);
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+            }
+
+            /* 修復角色展示區域 */
+            .character-display {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding-top: -100px;
+            }
+
+            /* 修復角色主圖 */
+            .character-main {
+                width: 100%;
+                max-width: 600px;
+                min-width: 300px;
+                left: auto;
+                position: relative;
+            }
+
+            .character-portrait {
+                width: 100%;
+                height: auto;
+                max-width: 350px;
+                transform: translateX(-15%);
+                margin: 0 auto;
+                display: block;
+            }
+
+            /* 修復角色資訊區域 */
+            .character-info {
+                width: 100%;
+                text-align: center;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+
+            .character-info img {
+                max-width: 500px;
+                width: 100%;
+                height: auto;
+                margin: -10px auto;
+                transform: translateX(10%);
+            }
+
+            /* 修復角色側身圖 */
+            .character-side-image {
+                position: relative;
+                top: 550px;
+                right: -30%;
+                width: 100%;
+                max-width: 200px;
+                min-width: 180px;
+                height: auto;
+                margin: -150px auto 0;
+                display: block;
+                z-index: 5;
+            }
+
+            /* 修復連結標籤 */
+            .link-label {
+                position: relative;
+                width: 400px;
+                height: auto;
+                margin: 550px auto 10px auto;
+                display: block;
+                transition: all 0.2s ease;
+                left: -10%;
+            }
+
+            .link-label2 {
+                position: relative;
+                width: 400px;
+                height: auto;
+                margin: 3px auto 30px auto;
+                display: block;
+                transition: all 0.2s ease;
+                left: -10%;
+                transform: translateY(-50px);
+            }
+
+            /* 手機版浮動選單調整 */
+            @media (max-width: 768px) {
+                header {
+                    height: 35px;
+                    padding: 0 8px;
+                }
+                header .home-icon {
+                    height: 22px;
+                    top: 5px;
+                }
+                header h1 {
+                    font-size: 1em;
+                    margin-left: 8px;
+                }
+                header .header-overlay {
+                    height: 30px;
+                    top: 1px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+
+                #floating-menu {
+                    height: 44px;
+                    padding: 1px;
+                    bottom: 150px;
+                }
+                #floating-menu.collapsed {
+                    width: 35px;
+                    left: calc(100vw - 35px);
+                }
+                #floating-menu .nav-button img {
+                    height: 25px;
+                    margin-top: -2px;
+                    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+                    max-height: 75%;
+                }
+                #floating-menu .separator {
+                    width: 10px;
+                    height: 30px;
+                    margin: 0 0.01em;
+                }
+                #floating-menu .collapse-button {
+                    width: 40px;
+                }
+                #floating-menu .collapse-button img {
+                    height: 30px;
+                    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+                }
+                #decorative-strip {
+                    height: 40px;
+                }
             }
         }
 
-/* 超小螢幕調整 */
-@media (max-width: 480px) {
-    .page-container {
-    min-height: calc(100vh + 200px); /* 頁面比螢幕高 200px */
-    padding-bottom: 200px;           /* 底部額外空間 */
-        padding: 5px;
-        gap: 10px;
-    }
+        /* 超小螢幕調整 */
+        @media (max-width: 480px) {
+            .page-container {
+                min-height: calc(100vh + 200px);
+                padding-bottom: 200px;
+                padding: 5px;
+                gap: 10px;
+            }
 
-    .character-sidebar {
-        padding: 70px 15px 25px;
-    }
+            .character-sidebar {
+                padding: 70px 15px 25px;
+            }
 
-    .sidebar-title {
-        width: 230px;
-        top: -65px;
-    }
+            .sidebar-title {
+                width: 230px;
+                top: -65px;
+            }
 
-    .series-title {
-        width: 250px;
-        margin: -65px auto 55px;
-    }
+            .series-title {
+                width: 250px;
+                margin: -65px auto 55px;
+            }
 
-    .character-list a {
-        width: 80%;
-        max-width: 150px;
-        padding: 6px 15px;
-        font-size: 13px;
-    }
+            .character-list a {
+                width: 80%;
+                max-width: 150px;
+                padding: 6px 15px;
+                font-size: 13px;
+            }
 
-.character-list a.active {
-    padding: 4px 40px;
-    }
+            .character-list a.active {
+                padding: 4px 40px;
+            }
 
-    .character-list a img {
-        height: 40px;
-        transform: translateX(-16px);
-    }
+            .character-list a img {
+                height: 40px;
+                transform: translateX(-16px);
+            }
 
-    .character-sub-list a {
-        width: 80%;
-        max-width: 180px;
-        padding: 5px 12px;
-        font-size: 14px;
-        margin-bottom: -13px;
-        transform: translateX(-17%);
-    }
+            .character-sub-list a {
+                width: 80%;
+                max-width: 180px;
+                padding: 5px 12px;
+                font-size: 14px;
+                margin-bottom: -13px;
+                transform: translateX(-17%);
+            }
 
-    .character-name-tag {
-        width: 350px;
-        top: 40px;
-        left: 60%;
-    }
+            .character-name-tag {
+                width: 350px;
+                top: 40px;
+                left: 60%;
+            }
 
-    .content-title {
-                width: 200px; /* 增加寬度 */
+            .content-title {
+                width: 200px;
                 top: 18px;
                 left: 50%;
                 transform: translateX(-60%);
             }
-    }
 
-    .character-content {
+            .character-content {
                 width: 360px;
-                padding: 55px 10px 500px; /* 增加底部空間給連結 */
-                min-height: 800px; /* 增加最小高度 */
-                transform: translateX(-26%); /* 減少左移 */
+                padding: 55px 10px 500px;
+                min-height: 800px;
+                transform: translateX(-26%);
                 background-size: 100% 100%;
-    }
+            }
 
-    .character-main {
-        width: 100%;
-        max-width: 700px;
-        min-width: 215px;
-        left: 45px;
+            .character-main {
+                width: 100%;
+                max-width: 700px;
+                min-width: 215px;
+                left: 45px;
                 top: -50px;
-    }
+            }
 
-    .character-portrait {
-        max-width: 260px;
-    }
+            .character-portrait {
+                max-width: 260px;
+            }
 
-    .character-info {
-        font-size: 13px;
-    }
+            .character-info {
+                font-size: 13px;
+            }
 
-    .character-info img {
-        max-width: 450px;
-        width: 100%;
-        height: auto;
-        margin-top: -80px
-    }
+            .character-info img {
+                max-width: 450px;
+                width: 100%;
+                height: auto;
+                margin-top: -80px;
+            }
 
-    .character-side-image {
-        position: fixed;
-        top: 435px;
-        right: 0;
-        width: auto%;
-        max-width: 180px;
-        min-width: 150px;
-        height: auto;
-        display: block;
-        z-index: 15;
-        margin: 0;
-        padding: 0;
-        transform: translateX(12px);
-    }
+            .character-side-image {
+                position: fixed;
+                top: 435px;
+                right: 0;
+                width: auto%;
+                max-width: 180px;
+                min-width: 150px;
+                height: auto;
+                display: block;
+                z-index: 15;
+                margin: 0;
+                padding: 0;
+                transform: translateX(12px);
+            }
 
-    .link-label{
-        position: relative;
-        width: 250px;
-        height: auto;
-        margin: 430px auto 10px auto;  /* 上30px 下10px */
-        display: block;
-        transition: all 0.2s ease; /* 添加平滑過渡 */
-        left: -17%;
-    }
+            .link-label {
+                position: relative;
+                width: 250px;
+                height: auto;
+                margin: 430px auto 10px auto;
+                display: block;
+                transition: all 0.2s ease;
+                left: -17%;
+            }
 
-.link-label2 {
-        position: relative;
-        width: 250px;
-        height: auto;
-        margin: 3px auto 30px auto;  /* 上10px 下30px */
-        display: block;
-        transition: all 0.2s ease; /* 添加平滑過渡 */
-        left: -17%;
-        transform: translateY(-50px); /* 這行造成問題 */
-    }
+            .link-label2 {
+                position: relative;
+                width: 250px;
+                height: auto;
+                margin: 3px auto 30px auto;
+                display: block;
+                transition: all 0.2s ease;
+                left: -17%;
+                transform: translateY(-50px);
+            }
+
             #floating-menu {
                 height: 30px;
-                bottom: 150px; /* 進一步調整 */
+                bottom: 150px;
             }
             #floating-menu .nav-button img {
                 height: 18px;
@@ -929,18 +960,18 @@
             #decorative-strip {
                 height: 25px;
             }
-}
+        }
 
-/* 修復桌面版確保沒有被影響 */
-@media (min-width: 993px) {
-    .character-sidebar {
-        margin-top: 200px;
-    }
+        /* 修復桌面版確保沒有被影響 */
+        @media (min-width: 993px) {
+            .character-sidebar {
+                margin-top: 200px;
+            }
 
-    .character-content {
-        margin-top: 180px;
-    }
-}
+            .character-content {
+                margin-top: 180px;
+            }
+        }
     </style>
 </head>
 
@@ -957,7 +988,7 @@
             <img src="img/山月民宿系列300.png" alt="山月民宿系列" class="series-title">
             <ul class="character-list">
                 <li class="character-item">
-                    <a href="#" data-character="zhouyi" class="character-main active">
+                    <a href="#" data-character="zhouyi" class="character-main">
                         <img src="img/周逸角色內籤.png" alt="周逸">
                         <span class="toggle-icon">▼</span>
                     </a>
@@ -984,7 +1015,7 @@
         <!-- 右側角色內容 -->
         <img src="img/Character-名稱-周逸.png" alt="周逸 Zhou Yi" class="character-name-tag" id="character-name-tag">
         <img src="img/character標題素材500.png" alt="Character" class="content-title">
-        <div class="character-content">
+        <div class="character-content" id="character-content">
             <div class="character-display">
                 <div class="character-main">
                     <img src="img/Character頁周逸大頭1000.png" alt="周逸大頭照" class="character-portrait" id="character-portrait">
@@ -994,8 +1025,8 @@
                 </div>
             </div>
             <img src="img/Character頁周逸側邊照1000.png" alt="周逸側邊照" class="character-side-image" id="character-side-image">
-            <img src="img/7755連結籤.png" alt="連結標籤" class="link-label" onclick="window.open('https://abr.ge/ivgdsn', '_blank')">
-            <img src="img/待更新連結籤.png" alt="連結標籤" class="link-label2" onclick="window.open('#', '_blank')">
+            <img src="img/7755連結籤.png" alt="連結標籤" class="link-label" id="link-label" onclick="window.open('https://abr.ge/ivgdsn', '_blank')">
+            <img src="img/待更新連結籤.png" alt="連結標籤" class="link-label2" id="link-label2" onclick="window.open('#', '_blank')">
         </div>
     </div>
 
@@ -1027,358 +1058,366 @@
 
     <script>
         // 角色資料
-const characterData = {
-    zhouyi: {
-        // 預設圖片就是基本資料的內容
-        portrait: 'img/Character頁周逸大頭1000.png',
-        nameTag: 'img/Character-名稱-周逸.png',
-        sideImage: 'img/Character頁周逸側邊照1000.png',
-        info: 'img/Character頁內文700.png',
-        idCard: 'img/周逸識別證.png',
-        sideImageLarge: 'img/周逸側身大圖.png',
-        
-        // 子選單內容
-        subContent: {
-            basic: {
-                info: 'img/Character頁內文700.png',
+        const characterData = {
+            zhouyi: {
+                // 預設圖片就是基本資料的內容
                 portrait: 'img/Character頁周逸大頭1000.png',
-                sideImage: 'img/Character頁周逸側邊照1000.png'
-            },
-            story: {
-                info: 'img/周逸角色故事內文.png',
-                portrait: 'img/周逸故事頭像.png',
-                sideImage: 'img/周逸故事側身.png'
-            },
-            relationship: {
-                info: 'img/周逸人物關係內文.png',
-                portrait: 'img/周逸關係頭像.png',
-                sideImage: 'img/周逸關係側身.png'
-            }
-        },
+                nameTag: 'img/Character-名稱-周逸.png',
+                sideImage: 'img/Character頁周逸側邊照1000.png',
+                info: 'img/Character頁內文700.png',
+                idCard: 'img/周逸識別證.png',
+                sideImageLarge: 'img/周逸側身大圖.png',
+                
+                // 子選單內容
+                subContent: {
+                    basic: {
+                        info: 'img/Character頁內文700.png',
+                        portrait: 'img/Character頁周逸大頭1000.png',
+                        sideImage: 'img/Character頁周逸側邊照1000.png'
+                    },
+                    story: {
+                        info: 'img/周逸角色故事內文.png',
+                        portrait: 'img/周逸故事頭像.png',
+                        sideImage: 'img/周逸故事側身.png'
+                    },
+                    relationship: {
+                        info: 'img/周逸人物關係內文.png',
+                        portrait: 'img/周逸關係頭像.png',
+                        sideImage: 'img/周逸關係側身.png'
+                    }
+                },
 
-        links: {
-            link1: {
-                image: 'img/7755連結籤.png',
-                url: 'https://abr.ge/ivgdsn',
-                show: true
+                links: {
+                    link1: {
+                        image: 'img/7755連結籤.png',
+                        url: 'https://abr.ge/ivgdsn',
+                        show: true
+                    },
+                    link2: {
+                        image: 'img/待更新連結籤.png',
+                        url: '#',
+                        show: true
+                    }
+                }
             },
-            link2: {
-                image: 'img/待更新連結籤.png',
-                url: '#',
-                show: true
-            }
-        }
-    },
-    weichuan: {
-        portrait: 'img/Character頁魏川大頭1000.png',
-        nameTag: 'img/Character-名稱-魏川.png',
-        sideImage: 'img/Character頁魏川側邊照1000.png',
-        info: 'img/Character頁魏川內文700.png',
-        idCard: 'img/魏川識別證.png',
-        sideImageLarge: 'img/魏川側身大圖.png',
-
-        subContent: {
-            basic: {
-                info: 'img/Character頁魏川內文700.png',
+            weichuan: {
                 portrait: 'img/Character頁魏川大頭1000.png',
-                sideImage: 'img/Character頁魏川側邊照1000.png'
-            },
-            story: {
-                info: 'img/魏川角色故事內文.png',
-                portrait: 'img/魏川故事頭像.png',
-                sideImage: 'img/魏川故事側身.png'
-            },
-            relationship: {
-                info: 'img/魏川人物關係內文.png',
-                portrait: 'img/魏川關係頭像.png',
-                sideImage: 'img/魏川關係側身.png'
+                nameTag: 'img/Character-名稱-魏川.png',
+                sideImage: 'img/Character頁魏川側邊照1000.png',
+                info: 'img/Character頁魏川內文700.png',
+                idCard: 'img/魏川識別證.png',
+                sideImageLarge: 'img/魏川側身大圖.png',
+
+                subContent: {
+                    basic: {
+                        info: 'img/Character頁魏川內文700.png',
+                        portrait: 'img/Character頁魏川大頭1000.png',
+                        sideImage: 'img/Character頁魏川側邊照1000.png'
+                    },
+                    story: {
+                        info: 'img/魏川角色故事內文.png',
+                        portrait: 'img/魏川故事頭像.png',
+                        sideImage: 'img/魏川故事側身.png'
+                    },
+                    relationship: {
+                        info: 'img/魏川人物關係內文.png',
+                        portrait: 'img/魏川關係頭像.png',
+                        sideImage: 'img/魏川關係側身.png'
+                    }
+                },
+                
+                links: {
+                    link1: {
+                        image: 'img/魏川連結1.png',
+                        url: 'https://魏川的連結.com',
+                        show: true
+                    },
+                    link2: {
+                        image: 'img/魏川連結2.png',
+                        url: 'https://魏川的另一個連結.com',
+                        show: false
+                    }
+                }
             }
-        },
-        
-        links: {
-            link1: {
-                image: 'img/魏川連結1.png',
-                url: 'https://魏川的連結.com',
-                show: true
-            },
-            link2: {
-                image: 'img/魏川連結2.png',
-                url: 'https://魏川的另一個連結.com',
-                show: false
+        };
+
+        // 頁面跳轉函數
+        function goto(section) {
+            window.location.href = section + '.html';
+        }
+
+        // 顯示/隱藏右側內容的函數
+        function showContent() {
+            const characterContent = document.getElementById('character-content');
+            const characterNameTag = document.getElementById('character-name-tag');
+            const linkLabel = document.getElementById('link-label');
+            const linkLabel2 = document.getElementById('link-label2');
+            
+            characterContent.classList.add('show-content');
+            characterNameTag.classList.add('show-content');
+            linkLabel.classList.add('show-content');
+            linkLabel2.classList.add('show-content');
+        }
+
+        function hideContent() {
+            const characterContent = document.getElementById('character-content');
+            const characterNameTag = document.getElementById('character-name-tag');
+            const linkLabel = document.getElementById('link-label');
+            const linkLabel2 = document.getElementById('link-label2');
+            
+            characterContent.classList.remove('show-content');
+            characterNameTag.classList.remove('show-content');
+            linkLabel.classList.remove('show-content');
+            linkLabel2.classList.remove('show-content');
+        }
+
+        // 更新連結函數
+        function updateCharacterLinks(links) {
+            const linkLabel1 = document.getElementById('link-label');
+            const linkLabel2 = document.getElementById('link-label2');
+            
+            if (linkLabel1 && links.link1.show) {
+                linkLabel1.src = links.link1.image;
+                linkLabel1.onclick = () => window.open(links.link1.url, '_blank');
+                linkLabel1.style.display = 'block';
+            } else if (linkLabel1) {
+                linkLabel1.style.display = 'none';
+            }
+            
+            if (linkLabel2 && links.link2.show) {
+                linkLabel2.src = links.link2.image;
+                linkLabel2.onclick = () => window.open(links.link2.url, '_blank');
+                linkLabel2.style.display = 'block';
+            } else if (linkLabel2) {
+                linkLabel2.style.display = 'none';
             }
         }
-    }
-};
 
-// 頁面跳轉函數
-function goto(section) {
-    window.location.href = section + '.html';
-}
-
-// 更新連結函數
-function updateCharacterLinks(links) {
-    const linkLabel1 = document.querySelector('.link-label');
-    const linkLabel2 = document.querySelector('.link-label2');
-    
-    if (linkLabel1 && links.link1.show) {
-        linkLabel1.src = links.link1.image;
-        linkLabel1.onclick = () => window.open(links.link1.url, '_blank');
-        linkLabel1.style.display = 'block';
-    } else if (linkLabel1) {
-        linkLabel1.style.display = 'none';
-    }
-    
-    if (linkLabel2 && links.link2.show) {
-        linkLabel2.src = links.link2.image;
-        linkLabel2.onclick = () => window.open(links.link2.url, '_blank');
-        linkLabel2.style.display = 'block';
-    } else if (linkLabel2) {
-        linkLabel2.style.display = 'none';
-    }
-}
-
-// 更新角色內容函數
-function updateCharacterContent(character, subType = null) {
-    const data = characterData[character];
-    if (!data) return;
-    
-    const characterPortrait = document.getElementById('character-portrait');
-    const characterNameTag = document.getElementById('character-name-tag');
-    const characterSideImage = document.getElementById('character-side-image');
-    const characterInfoContent = document.getElementById('character-info-content');
-    
-    if (subType && data.subContent && data.subContent[subType]) {
-        const subData = data.subContent[subType];
-        
-        characterPortrait.src = subData.portrait || data.portrait;
-        characterSideImage.src = subData.sideImage || data.sideImage;
-        characterInfoContent.src = subData.info || data.info;
-        characterNameTag.src = data.nameTag;
-        
-        console.log(`載入 ${character} 的 ${subType} 內容`);
-    } else {
-        characterPortrait.src = data.portrait;
-        characterNameTag.src = data.nameTag;
-        characterSideImage.src = data.sideImage;
-        characterInfoContent.src = data.info;
-        
-        console.log(`載入 ${character} 的預設內容`);
-    }
-    
-    updateCharacterLinks(data.links);
-}
-
-// 浮動選單收縮功能
-const floatingMenu = document.getElementById('floating-menu');
-const collapseButton = document.getElementById('collapse-button');
-const nav = floatingMenu.querySelector('nav');
-const collapseImg = collapseButton.querySelector('img');
-
-collapseButton.addEventListener('click', function() {
-    const isCollapsed = floatingMenu.classList.contains('collapsed');
-    
-    if (isCollapsed) {
-        floatingMenu.classList.remove('collapsed');
-        nav.classList.remove('hidden');
-        collapseImg.src = 'img/選單收縮素材300-300.png';
-    } else {
-        nav.classList.add('hidden');
-        setTimeout(() => {
-            floatingMenu.classList.add('collapsed');
-            collapseImg.src = 'img/選單收縮收攏素材300-300.png';
-        }, 300);
-    }
-});
-
-// 重要：獲取選單元素（在事件監聽器之前）
-const characterMainLinks = document.querySelectorAll('.character-main');
-const characterSubLinks = document.querySelectorAll('.character-sub-list a');
-
-// 主角色切換功能
-characterMainLinks.forEach(link => {
-    link.addEventListener('click', function(event) {
-        event.preventDefault();
-        console.log('點擊了角色按鈕');
-        
-        const characterItem = this.closest('.character-item');
-        
-        // 切換當前選單
-        characterItem.classList.toggle('expanded');
-        console.log('切換展開狀態:', characterItem.classList.contains('expanded'));
-        
-        // 移除所有主選單的active狀態
-        characterMainLinks.forEach(l => l.classList.remove('active'));
-        // 添加active狀態到當前點擊的連結
-        this.classList.add('active');
-        
-        // 重置所有子選單的active狀態
-        characterSubLinks.forEach(l => l.classList.remove('active'));
-        
-        const character = this.dataset.character;
-        
-        // 載入角色的基本資料
-        updateCharacterContent(character, 'basic');
-        
-        // 自動設置基本資料為選中狀態
-        const basicLink = document.querySelector(`[data-sub="${character}-basic"]`);
-        if (basicLink) {
-            basicLink.classList.add('active');
+        // 更新角色內容函數
+        function updateCharacterContent(character, subType = null) {
+            const data = characterData[character];
+            if (!data) return;
+            
+            const characterPortrait = document.getElementById('character-portrait');
+            const characterNameTag = document.getElementById('character-name-tag');
+            const characterSideImage = document.getElementById('character-side-image');
+            const characterInfoContent = document.getElementById('character-info-content');
+            
+            if (subType && data.subContent && data.subContent[subType]) {
+                const subData = data.subContent[subType];
+                
+                characterPortrait.src = subData.portrait || data.portrait;
+                characterSideImage.src = subData.sideImage || data.sideImage;
+                characterInfoContent.src = subData.info || data.info;
+                characterNameTag.src = data.nameTag;
+                
+                console.log(`載入 ${character} 的 ${subType} 內容`);
+            } else {
+                characterPortrait.src = data.portrait;
+                characterNameTag.src = data.nameTag;
+                characterSideImage.src = data.sideImage;
+                characterInfoContent.src = data.info;
+                
+                console.log(`載入 ${character} 的預設內容`);
+            }
+            
+            updateCharacterLinks(data.links);
         }
-    });
-});
 
-// 子選單點擊處理
-characterSubLinks.forEach(link => {
-    link.addEventListener('click', function(event) {
-        event.preventDefault();
-        
-        // 移除所有子選單的active狀態
-        characterSubLinks.forEach(l => l.classList.remove('active'));
-        // 添加active狀態到當前點擊的連結
-        this.classList.add('active');
-        
-        // 獲取當前選中的角色和子選單類型
-        const activeCharacterLink = document.querySelector('.character-main.active');
-        if (!activeCharacterLink) return;
-        
-        const character = activeCharacterLink.dataset.character;
-        const subSection = this.dataset.sub;
-        
-        // 解析子選單類型
-        const subType = subSection.split('-')[1];
-        
-        console.log('切換到:', character, subType);
-        
-        // 更新內容
-        updateCharacterContent(character, subType);
-    });
-});
+        // 浮動選單收縮功能
+        const floatingMenu = document.getElementById('floating-menu');
+        const collapseButton = document.getElementById('collapse-button');
+        const nav = floatingMenu.querySelector('nav');
+        const collapseImg = collapseButton.querySelector('img');
 
-// 圖片彈出功能
-function createImageModal() {
-    // 檢查是否已經有 modal
-    if (document.getElementById('image-modal')) {
-        return;
-    }
-    
-    // 創建彈出視窗HTML
-    const modalHtml = `
-        <div id="image-modal" class="image-modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); cursor: pointer;">
-            <span class="close-modal" style="position: absolute; top: 15px; right: 25px; color: white; font-size: 35px; font-weight: bold; cursor: pointer; z-index: 2001;">&times;</span>
-            <div class="modal-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 90%; max-height: 90%;">
-                <img id="modal-image" src="" alt="" style="width: 100%; height: auto; border-radius: 8px;">
-            </div>
-        </div>
-    `;
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
-
-    const modal = document.getElementById('image-modal');
-    const modalImg = document.getElementById('modal-image');
-    const closeBtn = document.querySelector('.close-modal');
-    const characterPortrait = document.getElementById('character-portrait');
-    const characterSideImage = document.getElementById('character-side-image');
-
-    // 點擊角色主圖 - 顯示識別證
-    if (characterPortrait) {
-        characterPortrait.style.cursor = 'pointer';
-        characterPortrait.addEventListener('click', function() {
-            const activeLink = document.querySelector('.character-main.active');
-            if (!activeLink) return;
+        collapseButton.addEventListener('click', function() {
+            const isCollapsed = floatingMenu.classList.contains('collapsed');
             
-            const currentCharacter = activeLink.dataset.character;
-            const idCardSrc = characterData[currentCharacter].idCard;
-            
-            modal.style.display = 'block';
-            modalImg.src = idCardSrc;
-            modalImg.alt = currentCharacter + '識別證';
-            console.log('點擊了主圖，顯示識別證');
+            if (isCollapsed) {
+                floatingMenu.classList.remove('collapsed');
+                nav.classList.remove('hidden');
+                collapseImg.src = 'img/選單收縮素材300-300.png';
+            } else {
+                nav.classList.add('hidden');
+                setTimeout(() => {
+                    floatingMenu.classList.add('collapsed');
+                    collapseImg.src = 'img/選單收縮收攏素材300-300.png';
+                }, 300);
+            }
         });
-    }
 
-    // 點擊角色側身圖 - 顯示側身大圖
-    if (characterSideImage) {
-        characterSideImage.style.cursor = 'pointer';
-        characterSideImage.addEventListener('click', function(e) {
-            e.stopPropagation();
-            
-            const activeLink = document.querySelector('.character-main.active');
-            if (!activeLink) {
-                console.log('找不到 active 的角色');
+        // 重要：獲取選單元素（在事件監聽器之前）
+        const characterMainLinks = document.querySelectorAll('.character-main');
+        const characterSubLinks = document.querySelectorAll('.character-sub-list a');
+
+        // 主角色切換功能（修改：不再自動顯示內容）
+        characterMainLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                console.log('點擊了角色按鈕');
+                
+                const characterItem = this.closest('.character-item');
+                
+                // 切換當前選單
+                characterItem.classList.toggle('expanded');
+                console.log('切換展開狀態:', characterItem.classList.contains('expanded'));
+                
+                // 如果是收起狀態，隱藏右側內容
+                if (!characterItem.classList.contains('expanded')) {
+                    hideContent();
+                    // 移除所有子選單的active狀態
+                    characterSubLinks.forEach(l => l.classList.remove('active'));
+                }
+                
+                // 移除所有主選單的active狀態
+                characterMainLinks.forEach(l => l.classList.remove('active'));
+                // 添加active狀態到當前點擊的連結
+                this.classList.add('active');
+            });
+        });
+
+        // 子選單點擊處理（修改：只有在點擊子選單時才顯示內容）
+        characterSubLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                
+                // 移除所有子選單的active狀態
+                characterSubLinks.forEach(l => l.classList.remove('active'));
+                // 添加active狀態到當前點擊的連結
+                this.classList.add('active');
+                
+                // 獲取當前選中的角色和子選單類型
+                const activeCharacterLink = document.querySelector('.character-main.active');
+                if (!activeCharacterLink) return;
+                
+                const character = activeCharacterLink.dataset.character;
+                const subSection = this.dataset.sub;
+                
+                // 解析子選單類型
+                const subType = subSection.split('-')[1];
+                
+                console.log('切換到:', character, subType);
+                
+                // 更新內容
+                updateCharacterContent(character, subType);
+                
+                // 顯示右側內容
+                showContent();
+            });
+        });
+
+        // 圖片彈出功能
+        function createImageModal() {
+            // 檢查是否已經有 modal
+            if (document.getElementById('image-modal')) {
                 return;
             }
             
-            const currentCharacter = activeLink.dataset.character;
-            const characterInfo = characterData[currentCharacter];
-            
-            modal.style.display = 'block';
-            
-            if (characterInfo && characterInfo.sideImageLarge) {
-                modalImg.src = characterInfo.sideImageLarge;
-                modalImg.alt = currentCharacter + '側身大圖';
-                console.log('顯示側身大圖:', characterInfo.sideImageLarge);
-            } else {
-                modalImg.src = this.src;
-                modalImg.alt = this.alt;
-                console.log('顯示側身原圖');
+            // 創建彈出視窗HTML
+            const modalHtml = `
+                <div id="image-modal" class="image-modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); cursor: pointer;">
+                    <span class="close-modal" style="position: absolute; top: 15px; right: 25px; color: white; font-size: 35px; font-weight: bold; cursor: pointer; z-index: 2001;">&times;</span>
+                    <div class="modal-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 90%; max-height: 90%;">
+                        <img id="modal-image" src="" alt="" style="width: 100%; height: auto; border-radius: 8px;">
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-image');
+            const closeBtn = document.querySelector('.close-modal');
+            const characterPortrait = document.getElementById('character-portrait');
+            const characterSideImage = document.getElementById('character-side-image');
+
+            // 點擊角色主圖 - 顯示識別證
+            if (characterPortrait) {
+                characterPortrait.style.cursor = 'pointer';
+                characterPortrait.addEventListener('click', function() {
+                    const activeLink = document.querySelector('.character-main.active');
+                    if (!activeLink) return;
+                    
+                    const currentCharacter = activeLink.dataset.character;
+                    const idCardSrc = characterData[currentCharacter].idCard;
+                    
+                    modal.style.display = 'block';
+                    modalImg.src = idCardSrc;
+                    modalImg.alt = currentCharacter + '識別證';
+                    console.log('點擊了主圖，顯示識別證');
+                });
             }
+
+            // 點擊角色側身圖 - 顯示側身大圖
+            if (characterSideImage) {
+                characterSideImage.style.cursor = 'pointer';
+                characterSideImage.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    const activeLink = document.querySelector('.character-main.active');
+                    if (!activeLink) {
+                        console.log('找不到 active 的角色');
+                        return;
+                    }
+                    
+                    const currentCharacter = activeLink.dataset.character;
+                    const characterInfo = characterData[currentCharacter];
+                    
+                    modal.style.display = 'block';
+                    
+                    if (characterInfo && characterInfo.sideImageLarge) {
+                        modalImg.src = characterInfo.sideImageLarge;
+                        modalImg.alt = currentCharacter + '側身大圖';
+                        console.log('顯示側身大圖:', characterInfo.sideImageLarge);
+                    } else {
+                        modalImg.src = this.src;
+                        modalImg.alt = this.alt;
+                        console.log('顯示側身原圖');
+                    }
+                });
+            }
+
+            // 關閉彈出視窗
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            // 點擊背景關閉
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // ESC鍵關閉
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.style.display === 'block') {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
+        // 響應式處理
+        function handleResize() {
+            if (window.innerWidth > 992) {
+                // 大螢幕時的處理
+            }
+        }
+
+        // 頁面載入時設定初始狀態（修改：不自動顯示內容）
+        window.addEventListener('load', function() {
+            console.log('頁面載入完成');
+            
+            // 不再自動設定周逸為選中狀態和顯示內容
+            // 用戶需要手動點擊「基本資料」才會顯示內容
+            
+            // 執行其他初始化
+            createImageModal();
+            handleResize();
+            
+            console.log('初始化完成：等待用戶點擊基本資料');
         });
-    }
 
-    // 關閉彈出視窗
-    closeBtn.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
-
-    // 點擊背景關閉
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-
-    // ESC鍵關閉
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.style.display === 'block') {
-            modal.style.display = 'none';
-        }
-    });
-}
-
-// 響應式處理
-function handleResize() {
-    if (window.innerWidth > 992) {
-        // 大螢幕時的處理
-    }
-}
-
-// 頁面載入時設定初始狀態
-window.addEventListener('load', function() {
-    console.log('頁面載入完成');
-    
-    // 設定周逸為預設選中狀態
-    const zhouyiLink = document.querySelector('[data-character="zhouyi"]');
-    const zhouyiBasicLink = document.querySelector('[data-sub="zhouyi-basic"]');
-    
-    if (zhouyiLink && zhouyiBasicLink) {
-        // 設定周逸為選中狀態
-        zhouyiLink.classList.add('active');
-        zhouyiLink.closest('.character-item').classList.add('expanded');
-        
-        // 設定基本資料為選中狀態
-        zhouyiBasicLink.classList.add('active');
-        
-        // 載入周逸的基本資料
-        updateCharacterContent('zhouyi', 'basic');
-        
-        console.log('設定完成：周逸基本資料');
-    }
-    
-    // 執行其他初始化
-    createImageModal();
-    handleResize();
-});
-
-window.addEventListener('resize', handleResize);
+        window.addEventListener('resize', handleResize);
     </script>
 </body>
 </html>
