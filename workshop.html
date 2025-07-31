@@ -1,38 +1,31 @@
 <!DOCTYPE html>
-
 <html lang="zh-Hant">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcadia</title>
-
+    <title>Arcadia - Extra</title>
     <style>
-        /* 全局設置：確保所有元素從邊緣開始，避免不必要的間距 */
+        /* 全域設定 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* HTML 和 Body 樣式：確保整個頁面高度正確，用於定位 fixed 元素 */
         html, body {
             height: 100%;
             overflow-x: hidden;
-            pointer-events: auto;
         }
 
         body {
             font-family: 'Papyrus', 'Andres', sans-serif;
             background: url('img/背景素材1200x800-300.png') no-repeat center center fixed;
             background-size: cover;
-            background-position: center center;
             display: flex;
             flex-direction: column;
-            position: relative;
         }
 
-        /* Header 樣式：頂部固定橫條 */
+        /* Header 樣式 */
         header {
             position: fixed;
             top: 0;
@@ -44,95 +37,228 @@
             background-position: center;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            padding: 0 15px;
+            justify-content: center;
             z-index: 1000;
         }
 
-        /* Home icon 樣式 */
         header .home-icon {
             height: 40px;
             width: auto;
             cursor: pointer;
-            max-width: 100%;
-            transition: height 0.3s ease;
-            position: absolute;  /* 讓它自由定位 */
-            left: 10px;          /* 離左邊的距離 */
-            top: 8px;           /* 離上方的距離 */
-            z-index: 1001;       /* 確保它蓋在 header 背景圖上 */
-        }
-
-        header .header-overlay {
             position: absolute;
-            top: 1px;          /* 距離 header 的頂端 */
-            left: 50%;       /* 水平置中 */
-            transform: translateX(-50%);
-            height: 50px;    /* 調整高度或寬度看圖片比例 */
-            z-index: 1000;   /* 比 header 的 z-index 高一點，確保能疊在上面 */
-            pointer-events: none; /* 不影響點擊 Home icon */
+            left: 10px;
+            top: 8px;
         }
 
-        /* 固定中間框線圖片容器 */
-        #fixed-center-frame {
-            position: fixed;
-            top: 15%;
-            left: 80%;
-            transform: translate(-50%, -50%);
-            width: 350px;
-            height: 600px;
-            max-width: 90%;
-            max-height: 80vh;
-            background-image: url('img/workshop標題素材500.png');
-            background-size: contain;
+        header .header-title {
+            height: 50px;
+            width: auto;
+            margin-top: -9px;
+        }
+
+        /* 主要內容區域 */
+        .page-container {
+            display: flex;
+            width: 100%;
+            max-width: 2500px;
+            margin: 80px auto 0;
+            padding: 20px;
+            gap: 30px;
+            min-height: calc(100vh - 200px);
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            transform: none;
+        }
+
+        /* 左側選單 */
+        .sidebar {
+            width: 280px;
+            min-width: 280px;
+            height: fit-content;
+            background-image: url('img/Character頁選單底框1000.png');
+            background-size: 100% auto;
             background-repeat: no-repeat;
-            background-position: center;
-            z-index: 500;
+            padding: 10px 20px 30px;
+            margin-top: 200px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .sidebar-title {
+            position: absolute;
+            top: 140px;
+            left: 160px;
+            transform: translateX(-50%);
+            width: 280px;
+            height: auto;
+        }
+
+        .series-header {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin: 0 auto 20px;
+            transform: translateX(-14px);
+            width: 266px;
+            position: relative;
+            padding: 0px 0px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .series-header:hover {
+            background-color: rgba(139, 111, 71, 0.1);
+        }
+
+        .series-header.expanded {
+            background-color: rgba(139, 111, 71, 0.15);
+        }
+
+        .series-header.expanded:hover {
+            background-color: rgba(139, 111, 71, 0.2);
+        }
+
+        .series-title {
+            width: 280px;
+            height: auto;
+        }
+
+        .story-list {
+            list-style: none;
+            padding: 0;
+            margin: -10px;
+            transform: translateX(-1%);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .story-list.expanded {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        .story-list li {
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .story-list a {
+            display: inline-flex;
+            width: 250px;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #5a4a3a;
+            padding: 8px 40px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .story-list a:hover {
+            color: #a8845a;
+            background-color: rgba(139, 111, 71, 0.1);
+        }
+
+        .story-list a.active {
+            color: #6d5537;
+            background-color: rgba(139, 111, 71, 0.2);
+        }
+
+        /* 右側內容區域 - 修改：採用與 character 相同的結構 */
+        .content-area {
+            flex: 1;
+            background-image: url('img/Character頁底框素材1000.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            padding: 80px 40px 40px;
+            position: relative;
+            margin-top: 180px;
+            min-height: 500px;
+            max-height: 950px;
+            width: 1200px;
+            /* 初始狀態：隱藏右側內容 */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        /* 當顯示內容時的樣式 */
+        .content-area.show-content {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* 修改：內容標題採用與 character 相同的定位方式，但相對於頁面容器 */
+        .content-title {
+            position: absolute;
+            top: 30px;
+            left: 85%;
+            transform: translateX(-50%);
+            width: 350px;
+            height: auto;
+        }
+
+        .story-display {
+            display: flex;
+            gap: 30px;
+            height: 100%;
+            align-items: flex-start;
+            color: #5a4a3a;
+            font-size: 16px;
+            line-height: 1.8;
+            position: relative;
+            z-index: 10;
             pointer-events: none;
         }
 
-        /* 底部「懸浮條」樣式 */
+        .story-content {
+            flex: 1;
+            pointer-events: auto;
+        }
+
+        .story-content img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* 底部浮動選單 */
         #floating-menu {
             position: fixed;
-            bottom: 260px; /* 固定距離，避開 decorative-strip */
+            bottom: 260px;
             right: 0;
             width: 100%;
             height: 60px;
             background: url('img/選單條素材1200-300.png') no-repeat center center;
             background-size: 200% 100%;
-            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 10px;
             z-index: 995;
             transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
             pointer-events: auto;
             overflow: hidden;
         }
 
-        /* 浮動選單收縮狀態 */
         #floating-menu.collapsed {
             width: 48px;
-            left: calc(100vw - 48px);
-            padding: 0;
+            right: 0;
             background-image: url('img/收攏後的選單素材300-300.png');
             background-size: cover;
-            background-position: center;
-            background-color: transparent;
         }
 
-        /* 懸浮條的導航部分 */
         #floating-menu nav {
             display: flex;
             align-items: center;
             gap: 0.2em;
             transition: opacity 0.3s ease-in-out;
-            will-change: opacity;
-            pointer-events: auto;
-            flex-shrink: 0;
         }
 
-        /* 隱藏懸浮條的導航內容（當收縮時） */
         #floating-menu nav.hidden {
             opacity: 0;
             pointer-events: none;
@@ -140,7 +266,6 @@
             overflow: hidden;
         }
 
-        /* 懸浮條按鈕樣式 */
         #floating-menu .nav-button {
             background: none;
             border: none;
@@ -149,19 +274,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            pointer-events: auto;
         }
 
         #floating-menu .nav-button img {
             height: 45px;
             width: auto;
-            display: block;
-            margin-top: 5px;
+            transform: translateY(2px);
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-            max-height: 85%; /* 確保圖片不超過容器 */
         }
 
-        /* 懸浮條分隔線 */
         #floating-menu .separator {
             width: 23px;
             height: 60px;
@@ -172,7 +293,6 @@
             pointer-events: none;
         }
 
-        /* 懸浮條收縮按鈕 */
         #floating-menu .collapse-button {
             position: absolute;
             right: 0;
@@ -203,82 +323,233 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 45px;/* 確保與 floating-menu 分開 */
+            height: 45px;
             background: url('img/底部橫條素材1200-300.png') no-repeat center center;
             background-size: 200% 100%;
             pointer-events: none;
-            z-index: 990; /* 降低 z-index */
+            z-index: 990;
         }
 
-        /* 響應式調整 */
-        @media (max-width: 768px) {
-            header {
-                height: 35px;
-                padding: 0 8px;
-            }
-            header .home-icon {
-                height: 22px;
-                top: 5px;
-            }
-            header h1 {
-                font-size: 1em;
-                margin-left: 8px;
-            }
-            header .header-overlay {
+        /* 手機版響應式設計修復 */
+        @media (max-width: 992px) {
+            header .header-title {
                 height: 30px;
-                top: 1px;
+                width: auto;
+                margin-top: -3px;
+                pointer-events: none;
+            }
+
+            .page-container {
+                flex-direction: column;
+                margin-top: 60px;
+                transform: translateX(100px);
+                padding: 10px;
+                gap: 15px;
+                max-width: 100%;
+            }
+
+            .sidebar {
+                width: 70%;
+                min-width: unset;
+                margin-top: 220px;
+                transform: translateX(-90px);
+                padding: 80px 20px 30px;
+                background-size: 100% auto;
+                position: relative;
+            }
+
+            .sidebar-title {
+                position: absolute;
+                top: -65px;
                 left: 50%;
                 transform: translateX(-50%);
+                width: 250px;
+                height: auto;
             }
 
-            #fixed-center-frame {
-                width: 90%;
-                height: 350px;
-                max-height: 60vh;
+            .series-header {
+                margin: -70px auto 40px;
+                transform: translateX(-4%);
+                padding: 0px 20px;
+            }
+
+            .series-title {
+                width: 310px;
+                transform: translateX(0px);
+            }
+
+            .story-list {
+                transform: translateX(-20%);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .story-list.expanded {
+                max-height: 600px;
+            }
+
+            .story-list a {
+                width: 100%;
+                max-width: 200px;
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+
+            /* 修復內容標題 */
+            .content-title {
+                position: absolute;
+                top: 20px;
                 left: 50%;
-                transform: translate(-50%, -50%);
+                transform: translateX(-45%);
+                width: 250px;
+                height: auto;
+                display: block;
+                z-index: 15;
             }
-            #floating-menu {
-                height: 44px;
-                padding: 1px; /* 減少內邊距 */
-                bottom: 150px; /* 避開 decorative-strip */
+
+            /* 修復內容區域 */
+            .content-area {
+                width: 100%;
+                margin-top: 10px;
+                padding: 0px 0px 900px;
+                min-height: 1100px;
+                max-height: none;
+                transform: translateX(-21%);
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
             }
-            #floating-menu.collapsed {
-                width: 35px;
-                left: calc(100vw - 35px);
+
+            .story-display {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding-top: 20px;
             }
-            #floating-menu .nav-button img {
-                height: 25px;
-                margin-top: 3px; /* 小螢幕下調整偏移 */
-                filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
-                max-height: 75%; /* 限制圖片高度 */
+
+            .story-content {
+                width: 100%;
+                text-align: left;
+                font-size: 14px;
+                line-height: 1.6;
+                padding: 0 20px;
             }
-            #floating-menu .separator {
-                width: 10px;
-                height: 30px; /* 縮小分隔線 */
-                margin: 0 0.01em;
-            }
-            #floating-menu .collapse-button {
-                width: 40px;
-            }
-            #floating-menu .collapse-button img {
-                height: 30px; /* 縮小按鈕圖片 */
-                filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
-            }
-            #decorative-strip {
-                height: 40px; /* 縮小底部條 */
+
+            /* 手機版浮動選單調整 */
+            @media (max-width: 768px) {
+                header {
+                    height: 35px;
+                    padding: 0 8px;
+                }
+                header .home-icon {
+                    height: 22px;
+                    top: 5px;
+                }
+                header h1 {
+                    font-size: 1em;
+                    margin-left: 8px;
+                }
+                header .header-overlay {
+                    height: 30px;
+                    top: 1px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+
+                #floating-menu {
+                    height: 44px;
+                    padding: 1px;
+                    bottom: 150px;
+                }
+                #floating-menu.collapsed {
+                    width: 35px;
+                    left: calc(100vw - 35px);
+                }
+                #floating-menu .nav-button img {
+                    height: 25px;
+                    margin-top: -2px;
+                    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+                    max-height: 75%;
+                }
+                #floating-menu .separator {
+                    width: 10px;
+                    height: 30px;
+                    margin: 0 0.01em;
+                }
+                #floating-menu .collapse-button {
+                    width: 40px;
+                }
+                #floating-menu .collapse-button img {
+                    height: 30px;
+                    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+                }
+                #decorative-strip {
+                    height: 40px;
+                }
             }
         }
 
-        /* 額外針對超小螢幕（例如 320px） */
+        /* 超小螢幕調整 */
         @media (max-width: 480px) {
+            .page-container {
+                min-height: calc(100vh + 200px);
+                padding-bottom: 200px;
+                padding: 5px;
+                gap: 10px;
+            }
+
+            .sidebar {
+                padding: 70px 15px 25px;
+            }
+
+            .sidebar-title {
+                width: 230px;
+                top: -65px;
+            }
+
+            .series-header {
+                margin: -65px auto 35px;
+            }
+
+            .series-title {
+                width: 250px;
+            }
+
+            .story-list a {
+                width: 100%;
+                max-width: 150px;
+                padding: 6px 30px;
+                font-size: 13px;
+                transform: translateX(31%);
+            }
+
+            .content-title {
+                width: 200px;
+                top: 18px;
+                left: 50%;
+                transform: translateX(-60%);
+            }
+
+            .content-area {
+                width: 360px;
+                padding: 55px 15px 1950px;
+                min-height: 800px;
+                transform: translateX(-26%);
+                background-size: 100% 100%;
+            }
+
+            .story-content {
+                font-size: 16px;
+                padding: 0 10px;
+            }
+
             #floating-menu {
                 height: 30px;
-                bottom: 150px; /* 進一步調整 */
+                bottom: 150px;
             }
             #floating-menu .nav-button img {
                 height: 18px;
-                margin-top: 2px;
+                margin-top: -2px;
             }
             #floating-menu .separator {
                 width: 10px;
@@ -291,17 +562,52 @@
                 height: 25px;
             }
         }
+
+        /* 修復桌面版確保沒有被影響 */
+        @media (min-width: 993px) {
+            .sidebar {
+                margin-top: 200px;
+            }
+
+            .content-area {
+                margin-top: 180px;
+            }
+        }
     </style>
 </head>
 
 <body>
     <header>
         <img src="img/Home icon300-300.png" alt="回首頁" class="home-icon" onclick="location.href='index.html'">
-        <img src="img/標題字300-300.png" class="header-overlay" alt="裝飾圖">
+        <img src="img/標題字300-300.png" class="header-title" alt="Arcadia">
     </header>
 
-    <div id="fixed-center-frame"></div>
+    <div class="page-container">
+        <!-- 左側選單 -->
+        <div class="sidebar" id="sidebar">
+            <img src="img/workshop頁選單標題300.png" alt="workshop列表標題" class="sidebar-title">
+            <div class="series-header" id="series-header">
+                <img src="img/山月民宿系列300.png" alt="山月民宿系列" class="series-title">
+            </div>
+            <ul class="story-list" id="story-list">
+                <li><a href="#" data-story="story1">故事檔位檔本1</a></li>
+                <li><a href="#" data-story="story2">故事檔位檔本2</a></li>
+                <li><a href="#" data-story="story3">故事檔位檔本3</a></li>
+            </ul>
+        </div>
 
+        <!-- 右側內容區域 -->
+        <img src="img/workshop標題素材500.png" alt="Extra" class="content-title">
+        <div class="content-area" id="content-area">
+            <div class="story-display">
+                <div class="story-content" id="story-content">
+                    <!-- 故事內容將在這裡動態載入 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部浮動選單 -->
     <div id="floating-menu">
         <nav>
             <button class="nav-button" onclick="goto('character')">
@@ -320,7 +626,7 @@
                 <img src="img/Contact icon300-300.png" alt="Contact">
             </button>
         </nav>
-        <button class="collapse-button" id="floating-menu-collapse-button">
+        <button class="collapse-button" id="collapse-button">
             <img src="img/選單收縮素材300-300.png" alt="Collapse Menu">
         </button>
     </div>
@@ -328,36 +634,148 @@
     <div id="decorative-strip"></div>
 
     <script>
+        // 故事資料
+        const storyData = {
+            story1: {
+                title: '故事檔位檔本1',
+                content: `
+                    <h3 style="text-align: center; margin-bottom: 20px;">故事檔位檔本1</h3>
+                    <p>10月31日 週四．陽光晴朗，游籃圈內為當暑前活動而入潮洶湧，允其是異層兩排起了長龍，晚餘的方向總不時聞來炙熱，為適由該是粳乾效所帶來發油的白煙。</p>
+                    <br>
+                    <p>此時前期險市中努雷視異體色颯動外奇的男生創駐骨視面面具，擧起了自拍棒白拍，口中一握拍呃護他的開友：「來～轉川！做站左邊，光比較好——陽孫做會起來好師死啦。」</p>
+                    <br>
+                    <p>「做不是水來認說是爛團？」各譽鷹洛各種程文的I騎的男生一轉川固無奈關的覽暑是滿合經解品的慶包圣融了回去。</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                    <br>
+                    <p>當被他前路，負責引導的工作人員來然來踊問他們：「不好意思，你們兩位只有兩人嗎？這裡需要三人以上才可以人隊，貴不會等下一組來問？」</p>
+                `
+            },
+            story2: {
+                title: '故事檔位檔本2',
+                content: `
+                    <h3 style="text-align: center; margin-bottom: 20px;">故事檔位檔本2</h3>
+                    <p>這裡是第二個故事的內容...</p>
+                `
+            },
+            story3: {
+                title: '故事檔位檔本3',
+                content: `
+                    <h3 style="text-align: center; margin-bottom: 20px;">故事檔位檔本3</h3>
+                    <p>這裡是第三個故事的內容...</p>
+                `
+            }
+        };
+
+        // 頁面跳轉函數
         function goto(section) {
             window.location.href = section + '.html';
         }
 
-        const floatingMenuElement = document.getElementById('floating-menu');
-        const floatingMenuNav = floatingMenuElement.querySelector('nav');
-        const floatingMenuCollapseButton = document.getElementById('floating-menu-collapse-button');
-        const floatingMenuCollapseButtonImg = floatingMenuCollapseButton.querySelector('img');
-
-        const expandedImgSrc = 'img/選單收縮素材300-300.png';
-        const collapsedImgSrc = 'img/選單收縮收攏素材300-300.png';
-
-        if (floatingMenuCollapseButton) {
-            floatingMenuCollapseButton.addEventListener('click', function() {
-                const isCollapsed = floatingMenuElement.classList.contains('collapsed');
-                if (isCollapsed) {
-                    floatingMenuElement.classList.remove('collapsed');
-                    floatingMenuNav.classList.remove('hidden');
-                    floatingMenuCollapseButtonImg.src = expandedImgSrc;
-                    floatingMenuCollapseButtonImg.alt = "Collapse Menu";
-                } else {
-                    floatingMenuNav.classList.add('hidden');
-                    setTimeout(() => {
-                        floatingMenuElement.classList.add('collapsed');
-                        floatingMenuCollapseButtonImg.src = collapsedImgSrc;
-                        floatingMenuCollapseButtonImg.alt = "Expand Menu";
-                    }, 250);
-                }
-            });
+        // 顯示內容
+        function showContent() {
+            const contentArea = document.getElementById('content-area');
+            contentArea.classList.add('show-content');
         }
+
+        // 隱藏內容
+        function hideContent() {
+            const contentArea = document.getElementById('content-area');
+            contentArea.classList.remove('show-content');
+        }
+
+        // 更新故事內容
+        function updateStoryContent(storyKey) {
+            const story = storyData[storyKey];
+            if (!story) return;
+            
+            const storyContent = document.getElementById('story-content');
+            storyContent.innerHTML = story.content;
+            
+            showContent();
+        }
+
+        // 浮動選單收縮功能
+        const floatingMenu = document.getElementById('floating-menu');
+        const collapseButton = document.getElementById('collapse-button');
+        const nav = floatingMenu.querySelector('nav');
+        const collapseImg = collapseButton.querySelector('img');
+
+        collapseButton.addEventListener('click', function() {
+            const isCollapsed = floatingMenu.classList.contains('collapsed');
+            
+            if (isCollapsed) {
+                floatingMenu.classList.remove('collapsed');
+                nav.classList.remove('hidden');
+                collapseImg.src = 'img/選單收縮素材300-300.png';
+            } else {
+                nav.classList.add('hidden');
+                setTimeout(() => {
+                    floatingMenu.classList.add('collapsed');
+                    collapseImg.src = 'img/選單收縮收攏素材300-300.png';
+                }, 300);
+            }
+        });
+
+        // 山月民宿系列展開/收縮功能
+        const seriesHeader = document.getElementById('series-header');
+        const storyList = document.getElementById('story-list');
+        
+        seriesHeader.addEventListener('click', function() {
+            const isExpanded = this.classList.contains('expanded');
+            
+            if (isExpanded) {
+                // 收縮
+                this.classList.remove('expanded');
+                storyList.classList.remove('expanded');
+                // 收縮時隱藏右側內容
+                hideContent();
+            } else {
+                // 展開
+                this.classList.add('expanded');
+                storyList.classList.add('expanded');
+            }
+        });
+
+        // 故事選單點擊處理
+        const storyLinks = document.querySelectorAll('.story-list a');
+        storyLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                
+                // 移除所有 active 狀態
+                storyLinks.forEach(l => l.classList.remove('active'));
+                // 添加 active 狀態到當前點擊的連結
+                this.classList.add('active');
+                
+                // 獲取故事 key 並更新內容
+                const storyKey = this.dataset.story;
+                updateStoryContent(storyKey);
+            });
+        });
+
+        // 頁面載入時初始化
+        window.addEventListener('load', function() {
+            console.log('Extra 頁面載入完成');
+        });
     </script>
 </body>
 </html>
